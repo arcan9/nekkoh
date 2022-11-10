@@ -3,6 +3,7 @@ import React from 'react';
 import parseRoute from './lib/parse-route';
 import Navigation from './components/navigation';
 import UserPost from './components/post';
+import CreatePost from './pages/create-post';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -21,18 +22,26 @@ export default class App extends React.Component {
     });
   }
 
-  render() {
+  renderPage() {
     const { route } = this.state;
     if (route.path === '') {
       return (
-        <>
-          <Navigation />
-          <UserPost />
-        </>
+        <UserPost />
       );
     }
-    if (route.path === 'bye') {
-      return 'Bye!';
+    if (route.path === 'createpost') {
+      return (
+        <CreatePost />
+      );
     }
+  }
+
+  render() {
+    return (
+      <>
+        <Navigation />
+        {this.renderPage()}
+      </>
+    );
   }
 }

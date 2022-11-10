@@ -7,13 +7,13 @@ export default function Navigation(props) {
         <div className='nav-container'>
           <div className='row justify-sb'>
             <div>
-              <h1 className='nekkoh'>Nekkoh</h1>
+              <h1 className='nekkoh'><a href="#">Nekkoh</a></h1>
             </div>
             <div>
               <input className='search-bar' type="text" placeholder='Search' />
               <ul className='nav-list'>
-                <li>Home</li>
-                <li>New Post</li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#createpost">New Post</a></li>
                 <li>Likes</li>
               </ul>
             </div>
