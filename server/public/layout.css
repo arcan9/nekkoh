@@ -1,0 +1,31 @@
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.justify-sb {
+  justify-content: space-between;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+
+  /* max-width: 70%; */
+}
+
+.post-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.col-2 {
+  flex-basis: calc(100% / 2);
+}

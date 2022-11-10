@@ -1,0 +1,64 @@
+body {
+  font-family: Roboto, sans-serif;
+  background-color: #fafafa;
+
+  /* font-family: 'Carter One', cursive; */
+}
+
+img {
+  width: 100%;
+}
+
+nav {
+  border-bottom: 0.1px solid #dbdbdb;
+  background-color: white;
+}
+
+div.nav-container {
+  max-width: 75%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.wrapper {
+  display: flex;
+  padding: 1.25rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 11px 7px -10px rgb(0 0 0 / 30%);
+  margin: 1.25rem;
+  border-radius: 6px;
+}
+
+h1.nekkoh {
+  font-family: "Carter One", cursive;
+  font-size: 30px;
+}
+
+input.search-bar {
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  text-align: center;
+  margin-right: 1.25rem
+
+  /* vertical-align: middle; */
+
+  /* height: 40%; */
+}
+
+ul.nav-list {
+  display: inline-block;
+  padding: 0;
+  text-align: right;
+}
+
+ul.nav-list > li {
+  list-style: none;
+  display: inline-block;
+  margin: 0.625rem 0.938rem;
+}
+
+div.user {
+  display: flex;
+  border-bottom: 0.1px solid #dbdbdb;
+}
