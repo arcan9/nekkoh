@@ -1,14 +1,48 @@
 require('dotenv/config');
+const path = require('path');
+const pg = require('pg');
 const express = require('express');
+const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
+const uploadsMiddleware = require('./uploads-middleware');
+
+const db = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 const app = express();
 
 app.use(staticMiddleware);
+app.use(express.json());
 
 app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
+});
+
+app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
+  const { caption } = req.body;
+  if (!caption) {
+    throw new ClientError(400, 'caption is a required field');
+  }
+
+  const imgUrl = path.join('/images', req.file.filename);
+
+  const sql = `
+    INSERT INTO "posts" ("caption", "mediaFile")
+    VALUES ($1, $2)
+    RETURNING *
+  `;
+  const values = [caption, imgUrl];
+
+  db.query(sql, values)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
 });
 
 app.use(errorMiddleware);

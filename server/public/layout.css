@@ -15,15 +15,17 @@
 
 .container {
   margin: 0 auto;
-  width: 100%;
 
-  /* max-width: 70%; */
+  /* width: 100%; */
+
+  max-width: 80%;
 }
 
 .post-row {
   display: flex;
   justify-content: center;
-  width: 100%;
+  margin: 0 auto;
+  width: 65%;
 }
 
 .col-2 {

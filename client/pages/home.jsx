@@ -1,10 +1,10 @@
 import React from 'react';
-import HelloWorld from '../components/hello-world';
+import Navigation from '../components/navigation';
 
 export default function Home(props) {
   return (
     <div>
-      <HelloWorld />
+      <Navigation />
     </div>
   );
 }

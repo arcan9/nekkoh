@@ -1,7 +1,6 @@
 import React from 'react';
-// import Home from './pages/home';
+import Home from './pages/home';
 import parseRoute from './lib/parse-route';
-import Navigation from './components/navigation';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
 
@@ -39,7 +38,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        <Navigation />
+        <Home />
         {this.renderPage()}
       </>
     );
