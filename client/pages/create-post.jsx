@@ -50,6 +50,7 @@ export default class CreatePost extends React.Component {
     fetch('/api/uploads', formDataObject)
       .then(res => res.json())
       .then(imgData => {
+        console.log(imgData);
         this.setState({
           caption: ''
         });

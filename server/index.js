@@ -25,6 +25,7 @@ app.get('/api/hello', (req, res) => {
 
 app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
   const { caption } = req.body;
+  const userId = 1;
   if (!caption) {
     throw new ClientError(400, 'caption is a required field');
   }
@@ -32,13 +33,25 @@ app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
   const imgUrl = path.join('/images', req.file.filename);
 
   const sql = `
-    INSERT INTO "posts" ("caption", "mediaFile")
-    VALUES ($1, $2)
+    INSERT INTO "posts" ("caption", "mediaFile", "userId")
+    VALUES ($1, $2, $3)
     RETURNING *
   `;
-  const values = [caption, imgUrl];
+  const values = [caption, imgUrl, userId];
 
   db.query(sql, values)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/posts', (req, res, next) => {
+  const sql = `
+    select *
+      from "posts"
+  `;
+  db.query(sql)
     .then(result => {
       res.json(result.rows);
     })

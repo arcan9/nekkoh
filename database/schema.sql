@@ -23,7 +23,7 @@ CREATE TABLE "public"."posts" (
 	"caption" TEXT NOT NULL,
 	"createdAt" TIMESTAMPTZ NOT NULL default now(),
 	"userId" integer NOT NULL,
-	"locationId" integer NOT NULL,
+	"locationId" integer DEFAULT NULL,
 	CONSTRAINT "posts_pk" PRIMARY KEY ("postId")
 ) WITH (
   OIDS=FALSE
@@ -57,7 +57,7 @@ CREATE TABLE "public"."followers" (
 );
 
 CREATE TABLE "public"."locations" (
-	"locationId" serial NOT NULL,
+	"locationId" serial NOT NULL '0',
 	"lat" float4 NOT NULL,
 	"long" float4 NOT NULL,
 	"name" TEXT NOT NULL,
