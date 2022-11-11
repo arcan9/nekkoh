@@ -9,12 +9,18 @@ import ViewComments from './view-comments';
 import TimeCreated from './time-created';
 
 export default function UserPost(props) {
-  return (
-    <div className='container'>
+  console.log('props.post:', props.post);
+  if (props.post.length === 0) {
+    return;
+  }
+
+  return props.post.map(({ postId, mediaFile, caption }) => (
+    // console.log(postId);
+    <div className='container' key={postId}>
       <div className='post-row'>
         <div className='wrapper'>
           <div className='col-2'>
-            <img src='https://i.pinimg.com/736x/ab/91/ee/ab91eef95a4b974f3dcb32c497802f08.jpg' />
+            <img src={mediaFile} />
           </div>
           <div className='col-2'>
             <div className='user'>
@@ -36,5 +42,5 @@ export default function UserPost(props) {
         </div>
       </div>
     </div>
-  );
+  )).reverse();
 }

@@ -8,7 +8,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      route: parseRoute(window.location.hash)
+      route: parseRoute(window.location.hash),
+      post: []
     };
   }
 
@@ -19,13 +20,19 @@ export default class App extends React.Component {
         route
       });
     });
+
+    fetch('/api/posts')
+      .then(res => res.json())
+      .then(post => this.setState({
+        post
+      }));
   }
 
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
       return (
-        <UserPost />
+        <UserPost post={this.state.post}/>
       );
     }
     if (route.path === 'createpost') {
