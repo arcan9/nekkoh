@@ -7,7 +7,7 @@ export default class CreatePost extends React.Component {
     super(props);
     this.state = {
       caption: '',
-      imageFile: 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg'
+      imagePreview: 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg'
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,12 +15,13 @@ export default class CreatePost extends React.Component {
     this.handleImage = this.handleImage.bind(this);
   }
 
+  /* replaces image preview with the target file */
   handleImage(event) {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState({
-          imageFile: reader.result
+          imagePreview: reader.result
         });
       }
     };
@@ -54,14 +55,15 @@ export default class CreatePost extends React.Component {
           caption: ''
         });
         this.fileInputRef.current.value = null;
+        window.location.hash = '';
+        this.props.getPosts();
       })
       .catch(err => console.error(err));
 
-    window.location.hash = '';
   }
 
   render() {
-    const imgFile = this.state.imageFile;
+    const imgPreview = this.state.imagePreview;
 
     return (
       <div className='container'>
@@ -70,7 +72,7 @@ export default class CreatePost extends React.Component {
             <div className='wrapper'>
               <div className='col-2'>
                 <div className='img-upload'>
-                  <img src={imgFile} onClick={event => {
+                  <img className='image-preview' src={imgPreview} onClick={event => {
                     event.preventDefault();
                     this.fileInputRef.current.click();
                   }}/>

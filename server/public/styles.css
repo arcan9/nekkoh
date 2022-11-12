@@ -9,6 +9,12 @@ img {
   width: 100%;
 }
 
+a:hover,
+button:hover,
+.image-preview:hover {
+  cursor: pointer;
+}
+
 nav {
   border-bottom: 0.1px solid #dbdbdb;
   background-color: white;
@@ -39,11 +45,7 @@ input.search-bar {
   border-radius: 6px;
   border: 1.5px solid #ccc;
   text-align: center;
-  margin-right: 1.25rem
-
-  /* vertical-align: middle; */
-
-  /* height: 40%; */
+  margin-right: 1.25rem;
 }
 
 ul.nav-list {

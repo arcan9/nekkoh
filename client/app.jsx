@@ -11,6 +11,7 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       post: []
     };
+    this.getPosts = this.getPosts.bind(this);
   }
 
   componentDidMount() {
@@ -20,7 +21,14 @@ export default class App extends React.Component {
         route
       });
     });
+    fetch('/api/posts')
+      .then(res => res.json())
+      .then(post => this.setState({
+        post
+      }));
+  }
 
+  getPosts() {
     fetch('/api/posts')
       .then(res => res.json())
       .then(post => this.setState({
@@ -37,7 +45,7 @@ export default class App extends React.Component {
     }
     if (route.path === 'createpost') {
       return (
-        <CreatePost />
+        <CreatePost getPosts={this.getPosts}/>
       );
     }
   }
