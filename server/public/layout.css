@@ -1,0 +1,44 @@
+.justify-sb {
+  justify-content: space-between;
+}
+
+.post-max-w {
+  margin: 0 auto;
+  max-width: 80%;
+}
+
+.post-w {
+  margin: 0 auto;
+  width: 65%;
+}
+
+.col-2 {
+  flex-basis: calc(100% / 2);
+}
+
+.display-inline {
+  display: inline;
+}
+
+@media screen and (max-width: 600px) {
+  .post-w {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .navlist ul {
+    text-align: center;
+    flex-direction: column;
+    display: flex;
+  }
+
+  .navlist.active ul {
+    display: flex;
+  }
+
+  .search-input {
+    max-width: 65%;
+    margin: 0 auto;
+  }
+}
