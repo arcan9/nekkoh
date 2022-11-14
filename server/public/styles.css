@@ -52,14 +52,12 @@ h1.nekkoh {
   margin-right: 1.25rem;
 } */
 
-ul.nav-list {
-  display: inline-block;
+div.navlist ul {
   padding: 0;
-  text-align: right;
 }
 
-ul.nav-list > li {
-  list-style: none;
+div.navlist ul > li {
+  padding: 0;
   display: inline-block;
   margin: 0.625rem 0.938rem;
 }

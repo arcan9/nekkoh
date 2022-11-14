@@ -68,7 +68,7 @@ export default class CreatePost extends React.Component {
     return (
       <div className='container'>
         <form id='create-photo' onSubmit={this.handleSubmit}>
-          <div className='post-row'>
+          <div className='post-w'>
             <div className='wrapper row d-flex'>
               <div className='col-md-6'>
                 <div className='img-upload'>

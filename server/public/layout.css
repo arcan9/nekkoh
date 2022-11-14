@@ -27,8 +27,14 @@
 }
 
 @media screen and (max-width: 767px) {
-  .right-hand-nav > .nav-list {
-    display: none;
+  .navlist ul {
+    text-align: center;
+    flex-direction: column;
+    display: flex;
+  }
+
+  .navlist.active ul {
+    display: flex;
   }
 
   .search-input {
