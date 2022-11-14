@@ -21,11 +21,7 @@ export default class App extends React.Component {
         route
       });
     });
-    fetch('/api/posts')
-      .then(res => res.json())
-      .then(post => this.setState({
-        post
-      }));
+    this.getPosts();
   }
 
   getPosts() {
