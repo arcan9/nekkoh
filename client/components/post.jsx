@@ -13,28 +13,30 @@ export default function UserPost(props) {
   }
 
   return props.post.map(({ postId, mediaFile, caption }) => (
-    <div className='container' key={postId}>
-      <div className='post-row'>
-        <div className='wrapper'>
-          <div className='col-2'>
-            <img src={mediaFile} />
+    <div className='post-max-w' key={postId}>
+      <div className='post-w justify-content-center'>
+        <div className='wrapper row d-flex'>
+          <div className='col-md-6'>
+            <img src={mediaFile} className='rounded img-fluid'/>
           </div>
-          <div className='col-2'>
-            <div className='user'>
-              <div className='col-2'>
-                <p>catnip_13</p>
+          <div className='col-md-6'>
+            <div className='user justify-content-between'>
+              <div className='col-sm-6'>
+                <p className='text-sm-start'>catnip_13</p>
               </div>
-              <div className='col-2 text-right'>
+              <div className='col-sm-6 text-sm-end'>
                 <EditButton />
               </div>
             </div>
-            <HeartIcon/>
-            <ChatBubbleIcon />
-            <LikesCount />
-            <Username />
-            {caption}
-            <ViewComments />
-            <TimeCreated />
+            <div className='text-sm-start'>
+              <HeartIcon/>
+              <ChatBubbleIcon />
+              <LikesCount />
+              <Username />
+              {caption}
+              <ViewComments />
+              <TimeCreated />
+            </div>
           </div>
         </div>
       </div>

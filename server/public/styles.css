@@ -24,15 +24,15 @@ div.nav-container {
   max-width: 75%;
   margin: 0 auto;
   padding: 0 1.5rem;
+  margin-top: 20px;
 }
 
-.wrapper {
-  display: flex;
+div.wrapper {
   padding: 1.25rem;
   background-color: white;
   border: 1px solid #ccc;
   box-shadow: 0 11px 7px -10px rgb(0 0 0 / 30%);
-  margin: 1.25rem;
+  margin: 1.25rem 0;
   border-radius: 6px;
 }
 
