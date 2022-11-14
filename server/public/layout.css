@@ -16,6 +16,10 @@
   flex-basis: calc(100% / 2);
 }
 
+.display-inline {
+  display: inline;
+}
+
 @media screen and (max-width: 600px) {
   .post-w {
     width: 100%;
@@ -23,7 +27,12 @@
 }
 
 @media screen and (max-width: 767px) {
-  .nav-list {
+  .right-hand-nav > .nav-list {
     display: none;
+  }
+
+  .search-input {
+    max-width: 65%;
+    margin: 0 auto;
   }
 }

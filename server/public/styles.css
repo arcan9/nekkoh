@@ -9,6 +9,10 @@ img {
   width: 100%;
 }
 
+a:link {
+  text-decoration: none;
+}
+
 a:hover,
 button:hover,
 .image-preview:hover {
@@ -38,15 +42,15 @@ div.wrapper {
 
 h1.nekkoh {
   font-family: "Carter One", cursive;
-  font-size: 30px;
+  font-size: 38px;
 }
 
-input.search-bar {
+/* input.search-bar {
   border-radius: 6px;
   border: 1.5px solid #ccc;
   text-align: center;
   margin-right: 1.25rem;
-}
+} */
 
 ul.nav-list {
   display: inline-block;
@@ -63,4 +67,12 @@ ul.nav-list > li {
 div.user {
   display: flex;
   border-bottom: 0.1px solid #dbdbdb;
+}
+
+i.fa-bars {
+  font-size: 30px;
+}
+
+textarea {
+  width: 100%;
 }

@@ -69,8 +69,8 @@ export default class CreatePost extends React.Component {
       <div className='container'>
         <form id='create-photo' onSubmit={this.handleSubmit}>
           <div className='post-row'>
-            <div className='wrapper'>
-              <div className='col-2'>
+            <div className='wrapper row d-flex'>
+              <div className='col-md-6'>
                 <div className='img-upload'>
                   <img className='image-preview' src={imgPreview} onClick={event => {
                     event.preventDefault();
@@ -87,7 +87,7 @@ export default class CreatePost extends React.Component {
                   accept='.png, .jpg, .jpeg, .gif' />
                 </div>
               </div>
-              <div className='col-2'>
+              <div className='col-md-6'>
                 <div className='user'>
                   <div className='col-2'>
                     <p>catnip_13</p>
@@ -104,7 +104,7 @@ export default class CreatePost extends React.Component {
                 value={this.state.caption}
                 onChange={this.handleCaptionChange}
                 required />
-                <button type='submit'>Post</button>
+                <button type="submit" className="btn btn-info mt-2">Post</button>
               </div>
             </div>
           </div>
