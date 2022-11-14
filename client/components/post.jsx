@@ -12,7 +12,9 @@ export default function UserPost(props) {
     return;
   }
 
-  return props.post.map(({ postId, mediaFile, caption }) => (
+  const posts = [...props.post];
+
+  return posts.map(({ postId, mediaFile, caption }) => (
     <div className='post-max-w' key={postId}>
       <div className='post-w justify-content-center'>
         <div className='wrapper row d-flex'>
