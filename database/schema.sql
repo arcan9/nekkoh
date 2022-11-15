@@ -57,7 +57,7 @@ CREATE TABLE "public"."followers" (
 );
 
 CREATE TABLE "public"."locations" (
-	"locationId" serial NOT NULL '0',
+	"locationId" serial NOT NULL,
 	"lat" float4 NOT NULL,
 	"long" float4 NOT NULL,
 	"name" TEXT NOT NULL,

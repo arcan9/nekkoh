@@ -13,6 +13,7 @@ export default function UserPost(props) {
   }
 
   const posts = [...props.post];
+  // console.log('props.posts:', posts);
 
   return posts.map(({ postId, mediaFile, caption }) => (
     <div className='post-max-w' key={postId}>
@@ -27,7 +28,7 @@ export default function UserPost(props) {
                 <p className='text-sm-start'>catnip_13</p>
               </div>
               <div className='col-sm-6 text-sm-end'>
-                <EditButton />
+                <EditButton id={postId}/>
               </div>
             </div>
             <div className='text-sm-start'>

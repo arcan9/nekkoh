@@ -7,12 +7,14 @@ export default class CreatePost extends React.Component {
     super(props);
     this.state = {
       caption: '',
-      imagePreview: 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg'
+      imagePreview: 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg',
+      isEditing: false
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCaptionChange = this.handleCaptionChange.bind(this);
     this.handleImage = this.handleImage.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   /* replaces image preview with the target file */
@@ -62,12 +64,56 @@ export default class CreatePost extends React.Component {
 
   }
 
+  handleEdit(event) {
+    event.preventDefault();
+    this.setState({
+      isEditing: true
+    });
+
+    // let userPost = null;
+    let index = 0;
+
+    const currentUserPosts = this.props.post;
+    const editingPostId = this.props.postId;
+    console.log('this.props.postId --->', editingPostId);
+
+    for (let i = 0; i < currentUserPosts.length; i++) {
+      if (currentUserPosts[i].postId === editingPostId) {
+        index = i;
+      }
+    }
+
+    const formData = new FormData();
+
+    formData.append('caption', this.state.caption);
+    formData.append('image', this.fileInputRef.current.files[0]);
+
+    const userPostObj = {
+      method: 'PUT',
+      body: formData
+    };
+
+    fetch(`api/posts/${editingPostId}`, userPostObj)
+      .then(res => res.json())
+      .then(post => {
+        const postsCopy = [...this.state.post];
+        postsCopy[index] = post;
+        // this.setState({
+        //   postsCopy
+        // });
+        this.fileInputRef.current.value = null;
+        window.location.hash = '';
+        this.props.getPosts(postsCopy);
+      })
+      .catch(err => console.error(err));
+  }
+
   render() {
     const imgPreview = this.state.imagePreview;
-
+    // console.log('this.props.editingPost:', this.props.post);
     return (
       <div className='container'>
-        <form id='create-photo' onSubmit={this.handleSubmit}>
+        <form id='create-photo' onSubmit={this.handleEdit}>
           <div className='post-w'>
             <div className='wrapper row d-flex'>
               <div className='col-md-6'>

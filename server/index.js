@@ -19,9 +19,9 @@ const app = express();
 app.use(staticMiddleware);
 app.use(express.json());
 
-app.get('/api/hello', (req, res) => {
-  res.json({ hello: 'world' });
-});
+// app.get('/api/hello', (req, res) => {
+//   res.json({ hello: 'world' });
+// });
 
 app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
   const { caption } = req.body;
@@ -42,6 +42,35 @@ app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
   db.query(sql, values)
     .then(result => {
       res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.put('api/posts/:postId', (req, res, next) => {
+  const { caption, postId } = req.body;
+  const userId = 1;
+  const imgUrl = path.join('/images', req.file.filename);
+
+  const sql = `
+    UPDATE "posts"
+       SET "caption" = $1,
+           "mediaFile" = $2,
+           "userId" = $3,
+     WHERE "postId" = $4
+     RETURNING *
+  `;
+  const values = [caption, imgUrl, userId, postId];
+
+  db.query(sql, values)
+    .then(result => {
+      const [post] = result.rows;
+      if (!post) {
+        res.status(404).json({
+          error: `cannot find post with the postId ${postId}`
+        });
+        return;
+      }
+      res.json(post);
     })
     .catch(err => next(err));
 });

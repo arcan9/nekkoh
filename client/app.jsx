@@ -10,8 +10,10 @@ export default class App extends React.Component {
     this.state = {
       route: parseRoute(window.location.hash),
       post: []
+      // postId: null
     };
     this.getPosts = this.getPosts.bind(this);
+    // this.getPostId = this.getPostId.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +26,7 @@ export default class App extends React.Component {
     this.getPosts();
   }
 
-  getPosts() {
+  getPosts(props) {
     fetch('/api/posts')
       .then(res => res.json())
       .then(post => this.setState({
@@ -34,6 +36,7 @@ export default class App extends React.Component {
 
   renderPage() {
     const { route } = this.state;
+    const postId = this.state.route.params.get('postId');
     if (route.path === '') {
       return (
         <UserPost post={this.state.post}/>
@@ -42,6 +45,13 @@ export default class App extends React.Component {
     if (route.path === 'createpost') {
       return (
         <CreatePost getPosts={this.getPosts}/>
+      );
+    }
+    if (route.path === 'editpost') {
+      return (
+        <CreatePost
+        post={this.state.post}
+        postId={postId} getPosts={this.getPosts} />
       );
     }
   }
