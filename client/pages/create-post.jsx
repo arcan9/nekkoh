@@ -1,13 +1,15 @@
 import React from 'react';
 import ViewComments from '../components/view-comments';
 import TimeCreated from '../components/time-created';
+import Modal from '../components/modal';
 
 export default class CreatePost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       caption: '',
-      imagePreview: 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg'
+      imagePreview: 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg',
+      modal: false
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,6 +17,8 @@ export default class CreatePost extends React.Component {
     this.handleImage = this.handleImage.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   /* replaces image preview with the target file */
@@ -58,7 +62,7 @@ export default class CreatePost extends React.Component {
         });
         this.fileInputRef.current.value = null;
         window.location.hash = '';
-        this.props.updatePosts(); // CHANGE THIS BACK TO getPosts()
+        this.props.updatePosts();
       })
       .catch(err => console.error(err));
 
@@ -71,7 +75,6 @@ export default class CreatePost extends React.Component {
 
     const currentUserPosts = this.props.post;
     const editingPostId = this.props.postId;
-    // console.log('this.props.postId --->', editingPostId);
 
     // Find the index of the post with the matching postId in the state array.
     for (let i = 0; i < currentUserPosts.length; i++) {
@@ -94,8 +97,6 @@ export default class CreatePost extends React.Component {
       .then(res => res.json())
       .then(post => {
         const postsCopy = this.props.post.slice();
-        // console.log('postsCopy:', postsCopy);
-        // console.log('post:', post);
         postsCopy[index] = post;
         this.fileInputRef.current.value = null;
         window.location.hash = '';
@@ -133,11 +134,24 @@ export default class CreatePost extends React.Component {
       .catch(err => console.error(err));
   }
 
+  showModal() {
+    this.setState({
+      modal: true
+    });
+  }
+
+  hideModal() {
+    this.setState({
+      modal: false
+    });
+  }
+
   render() {
     const imgPreview = this.state.imagePreview;
     let onSubmitBehavior = null;
     let deleteText = null;
     let buttonText = '';
+    let modal = null;
 
     if (this.props.editing === true) {
       buttonText = 'Edit';
@@ -148,58 +162,70 @@ export default class CreatePost extends React.Component {
       onSubmitBehavior = this.handleSubmit;
     }
 
+    if (this.state.modal === true) {
+      modal = <Modal
+        modal={this.state.modal}
+        post={this.props.post}
+        postId={this.props.postId}
+        hide={this.hideModal}
+        delete={this.handleDelete}/>;
+    }
+
     return (
-      <div className='container'>
-        <form id='create-photo' onSubmit={ onSubmitBehavior }>
-          <div className='post-w'>
-            <div className='wrapper row d-flex'>
-              <div className='col-md-6'>
-                <div className='img-upload'>
-                  <img className='image-preview' src={imgPreview} onClick={event => {
-                    event.preventDefault();
-                    this.fileInputRef.current.click();
-                  }}/>
-                  <input
-                  required
-                  style={{ display: 'none' }}
-                  className='file-input'
-                  type='file'
-                  name='image'
-                  ref={this.fileInputRef}
-                  onChange={this.handleImage}
-                  accept='.png, .jpg, .jpeg, .gif' />
-                </div>
-              </div>
-              <div className='col-md-6'>
-                <div className='user'>
-                  <div className='col-2'>
-                    <p>catnip_13</p>
+      <>
+        {modal}
+        <div className='container'>
+          <form id='create-photo' onSubmit={ onSubmitBehavior }>
+            <div className='post-w'>
+              <div className='wrapper row d-flex'>
+                <div className='col-md-6'>
+                  <div className='img-upload'>
+                    <img className='image-preview' src={imgPreview} onClick={event => {
+                      event.preventDefault();
+                      this.fileInputRef.current.click();
+                    }}/>
+                    <input
+                      required
+                      style={{ display: 'none' }}
+                      className='file-input'
+                      type='file'
+                      name='image'
+                      ref={this.fileInputRef}
+                      onChange={this.handleImage}
+                      accept='.png, .jpg, .jpeg, .gif' />
                   </div>
                 </div>
-                <ViewComments />
-                <TimeCreated />
-                <textarea
-                id="photo-cap"
-                name="photo-cap"
-                rows="4"
-                cols="50"
-                placeholder='Write a caption...'
-                value={this.state.caption}
-                onChange={this.handleCaptionChange}
-                required />
-                <div className='row'>
-                  <div className='col-md-6'>
-                    <a onClick={this.handleDelete} className='delete'>{deleteText}</a>
+                <div className='col-md-6'>
+                  <div className='user'>
+                    <div className='col-2'>
+                      <p>catnip_13</p>
+                    </div>
                   </div>
-                  <div className='col-md-6 text-right'>
-                    <button type="submit" className="btn btn-info mt-2">{buttonText}</button>
+                  <ViewComments />
+                  <TimeCreated />
+                  <textarea
+                    id="photo-cap"
+                    name="photo-cap"
+                    rows="4"
+                    cols="50"
+                    placeholder='Write a caption...'
+                    value={this.state.caption}
+                    onChange={this.handleCaptionChange}
+                    required />
+                  <div className='row'>
+                    <div className='col-md-6'>
+                      <a onClick={this.showModal} className='delete'>{deleteText}</a>
+                    </div>
+                    <div className='col-md-6 text-right'>
+                      <button type="submit" className="btn btn-info mt-2">{buttonText}</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </>
     );
   }
 }

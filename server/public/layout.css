@@ -41,4 +41,12 @@
     max-width: 65%;
     margin: 0 auto;
   }
+
+  .modal-wrapper .row {
+    flex-direction: column-reverse;
+  }
+
+  .confirm-btn {
+    margin-bottom: 10px;
+  }
 }
