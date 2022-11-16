@@ -14,6 +14,7 @@ export default class CreatePost extends React.Component {
     this.handleCaptionChange = this.handleCaptionChange.bind(this);
     this.handleImage = this.handleImage.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   /* replaces image preview with the target file */
@@ -103,13 +104,44 @@ export default class CreatePost extends React.Component {
       .catch(err => console.error(err));
   }
 
+  handleDelete() {
+    // alert('Delete clicked');
+    let index = 0;
+
+    const currentUserPosts = this.props.post;
+    const editingPostId = this.props.postId;
+
+    // Find the index of the post with the matching postId in the state array.
+    for (let i = 0; i < currentUserPosts.length; i++) {
+      if (currentUserPosts[i].postId === editingPostId) {
+        index = i;
+      }
+    }
+    const deletePostObj = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    };
+
+    fetch(`/api/posts/${editingPostId}`, deletePostObj)
+      .then(post => {
+        const postsCopy = this.props.post.slice();
+        postsCopy[index] = post;
+        this.fileInputRef.current.value = null;
+        window.location.hash = '';
+        this.props.updatePosts(postsCopy);
+      })
+      .catch(err => console.error(err));
+  }
+
   render() {
     const imgPreview = this.state.imagePreview;
     let onSubmitBehavior = null;
+    let deleteText = null;
     let buttonText = '';
 
     if (this.props.editing === true) {
       buttonText = 'Edit';
+      deleteText = 'Delete';
       onSubmitBehavior = this.handleEdit;
     } else if (this.props.editing === false) {
       buttonText = 'New Post';
@@ -155,7 +187,14 @@ export default class CreatePost extends React.Component {
                 value={this.state.caption}
                 onChange={this.handleCaptionChange}
                 required />
-                <button type="submit" className="btn btn-info mt-2">{buttonText}</button>
+                <div className='row'>
+                  <div className='col-md-6'>
+                    <a onClick={this.handleDelete} className='delete'>{deleteText}</a>
+                  </div>
+                  <div className='col-md-6 text-right'>
+                    <button type="submit" className="btn btn-info mt-2">{buttonText}</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

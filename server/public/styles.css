@@ -36,8 +36,6 @@ button::after {
   background: #e2fffe;
   display: block;
   position: absolute;
-  padding-top: 300%;
-  padding-left: 350%;
   margin-left: -20px !important;
   margin-top: -120%;
   opacity: 0;
@@ -49,6 +47,15 @@ button:active::after {
   margin: 0;
   opacity: 1;
   transition: 0s;
+}
+
+a.delete {
+  text-decoration: underline;
+  color: rgb(154, 159, 168);
+}
+
+a.delete:hover {
+  color: #465863;
 }
 
 a:hover,

@@ -90,6 +90,21 @@ app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
+  const { postId } = req.params;
+  const sql = `
+    DELETE FROM "posts"
+          WHERE "postId" = $1
+  `;
+  const values = [postId];
+
+  db.query(sql, values)
+    .then(result => {
+      res.sendStatus(204);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/posts', (req, res, next) => {
   const sql = `
     select *
