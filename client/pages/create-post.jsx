@@ -152,6 +152,7 @@ export default class CreatePost extends React.Component {
     let deleteText = null;
     let buttonText = '';
     let modal = null;
+    let requiredStatus = false;
 
     if (this.props.editing === true) {
       buttonText = 'Edit';
@@ -159,6 +160,7 @@ export default class CreatePost extends React.Component {
       onSubmitBehavior = this.handleEdit;
     } else if (this.props.editing === false) {
       buttonText = 'New Post';
+      requiredStatus = true;
       onSubmitBehavior = this.handleSubmit;
     }
 
@@ -185,7 +187,7 @@ export default class CreatePost extends React.Component {
                       this.fileInputRef.current.click();
                     }}/>
                     <input
-                      required
+                      required={requiredStatus}
                       style={{ display: 'none' }}
                       className='file-input'
                       type='file'
