@@ -49,9 +49,22 @@ app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
 app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
   const { caption } = req.body;
   const { postId } = req.params;
-  // console.log(req.body);
   const userId = 1;
   const imgUrl = path.join('/images', req.file.filename);
+
+  if (typeof caption !== 'string') {
+    res.status(400).json({
+      error: 'caption (string) is a required field'
+    });
+    return;
+  }
+
+  if (typeof imgUrl !== 'string') {
+    res.status(400).json({
+      error: 'imgUrl (string) is a required field'
+    });
+    return;
+  }
 
   const sql = `
     UPDATE "posts"
