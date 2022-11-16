@@ -7,8 +7,7 @@ export default class CreatePost extends React.Component {
     super(props);
     this.state = {
       caption: '',
-      imagePreview: 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg',
-      isEditing: false
+      imagePreview: 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg'
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,13 +51,13 @@ export default class CreatePost extends React.Component {
 
     fetch('/api/uploads', formDataObject)
       .then(res => res.json())
-      .then(imgData => {
+      .then(posts => {
         this.setState({
           caption: ''
         });
         this.fileInputRef.current.value = null;
         window.location.hash = '';
-        this.props.getPosts();
+        this.props.updatePosts(); // CHANGE THIS BACK TO getPosts()
       })
       .catch(err => console.error(err));
 
@@ -66,17 +65,14 @@ export default class CreatePost extends React.Component {
 
   handleEdit(event) {
     event.preventDefault();
-    this.setState({
-      isEditing: true
-    });
 
-    // let userPost = null;
     let index = 0;
 
     const currentUserPosts = this.props.post;
     const editingPostId = this.props.postId;
-    console.log('this.props.postId --->', editingPostId);
+    // console.log('this.props.postId --->', editingPostId);
 
+    // Find the index of the post with the matching postId in the state array.
     for (let i = 0; i < currentUserPosts.length; i++) {
       if (currentUserPosts[i].postId === editingPostId) {
         index = i;
@@ -89,31 +85,39 @@ export default class CreatePost extends React.Component {
     formData.append('image', this.fileInputRef.current.files[0]);
 
     const userPostObj = {
-      method: 'PUT',
+      method: 'PATCH',
       body: formData
     };
 
-    fetch(`api/posts/${editingPostId}`, userPostObj)
+    fetch(`/api/posts/${editingPostId}`, userPostObj)
       .then(res => res.json())
       .then(post => {
-        const postsCopy = [...this.state.post];
+        const postsCopy = this.props.post.slice();
+        // console.log('postsCopy:', postsCopy);
+        // console.log('post:', post);
         postsCopy[index] = post;
-        // this.setState({
-        //   postsCopy
-        // });
         this.fileInputRef.current.value = null;
         window.location.hash = '';
-        this.props.getPosts(postsCopy);
+        this.props.updatePosts(postsCopy);
       })
       .catch(err => console.error(err));
   }
 
   render() {
     const imgPreview = this.state.imagePreview;
-    // console.log('this.props.editingPost:', this.props.post);
+    console.log(this.props.editing);
+    let onSubmitBehavior = null;
+
+    if (this.props.editing === true) {
+      onSubmitBehavior = this.handleEdit;
+      console.log('form is currently on handleEdit and editing state is true');
+    } else if (this.props.editing === false) {
+      onSubmitBehavior = this.handleSubmit;
+    }
+
     return (
       <div className='container'>
-        <form id='create-photo' onSubmit={this.handleEdit}>
+        <form id='create-photo' onSubmit={ onSubmitBehavior }>
           <div className='post-w'>
             <div className='wrapper row d-flex'>
               <div className='col-md-6'>

@@ -46,8 +46,10 @@ app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.put('api/posts/:postId', (req, res, next) => {
-  const { caption, postId } = req.body;
+app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
+  const { caption } = req.body;
+  const { postId } = req.params;
+  // console.log(req.body);
   const userId = 1;
   const imgUrl = path.join('/images', req.file.filename);
 
@@ -55,7 +57,7 @@ app.put('api/posts/:postId', (req, res, next) => {
     UPDATE "posts"
        SET "caption" = $1,
            "mediaFile" = $2,
-           "userId" = $3,
+           "userId" = $3
      WHERE "postId" = $4
      RETURNING *
   `;

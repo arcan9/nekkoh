@@ -4,7 +4,7 @@ import Navigation from '../components/navigation';
 export default function Home(props) {
   return (
     <div>
-      <Navigation />
+      <Navigation isEditing={props.isEditing}/>
     </div>
   );
 }

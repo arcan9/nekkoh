@@ -9,11 +9,11 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       route: parseRoute(window.location.hash),
-      post: []
-      // postId: null
+      post: [],
+      isEditing: false
     };
-    this.getPosts = this.getPosts.bind(this);
-    // this.getPostId = this.getPostId.bind(this);
+    this.updatePosts = this.updatePosts.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -23,15 +23,24 @@ export default class App extends React.Component {
         route
       });
     });
-    this.getPosts();
+    this.updatePosts();
   }
 
-  getPosts(props) {
+  updatePosts(update) {
     fetch('/api/posts')
       .then(res => res.json())
-      .then(post => this.setState({
-        post
+      .then(update => this.setState({
+        post: update
       }));
+    this.setState({
+      isEditing: false
+    });
+  }
+
+  handleClick() {
+    this.setState({
+      isEditing: !this.state.isEditing
+    });
   }
 
   renderPage() {
@@ -39,19 +48,19 @@ export default class App extends React.Component {
     const postId = this.state.route.params.get('postId');
     if (route.path === '') {
       return (
-        <UserPost post={this.state.post}/>
+        <UserPost post={this.state.post} isEditing={this.handleClick}/>
       );
     }
     if (route.path === 'createpost') {
       return (
-        <CreatePost getPosts={this.getPosts}/>
+        <CreatePost updatePosts={this.updatePosts} />
       );
     }
     if (route.path === 'editpost') {
       return (
         <CreatePost
         post={this.state.post}
-        postId={postId} getPosts={this.getPosts} />
+        postId={postId} updatePosts={this.updatePosts} isEditing={this.handleClick} />
       );
     }
   }
@@ -59,7 +68,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        <Home />
+        <Home isEditing={() => { this.setState({ isEditing: false }); }}/>
         {this.renderPage()}
       </>
     );

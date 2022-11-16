@@ -19,9 +19,9 @@ export default function Navigation(props) {
               {/* <i className='fa-solid fa-bars d-block d-md-none d-lg-none d-xl-none d-xxl-none d-flex justify-content-center m-3' /> */}
               <div className='navlist'>
                 <ul className=''>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#createpost">New Post</a></li>
-                  <li>Likes</li>
+                  <li onClick={props.isEditing}><a href="#">Home</a></li>
+                  <li onClick={props.isEditing}><a href="#createpost">New Post</a></li>
+                  <li onClick={props.isEditing}>Likes</li>
                 </ul>
               </div>
             </div>
