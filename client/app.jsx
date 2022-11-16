@@ -48,19 +48,24 @@ export default class App extends React.Component {
     const postId = this.state.route.params.get('postId');
     if (route.path === '') {
       return (
-        <UserPost post={this.state.post} isEditing={this.handleClick}/>
+        <UserPost post={this.state.post}
+        isEditing={this.handleClick}/>
       );
     }
     if (route.path === 'createpost') {
       return (
-        <CreatePost updatePosts={this.updatePosts} editing={this.state.isEditing}/>
+        <CreatePost updatePosts={this.updatePosts}
+        editing={false}/>
       );
     }
     if (route.path === 'editpost') {
       return (
         <CreatePost
         post={this.state.post}
-        postId={postId} updatePosts={this.updatePosts} isEditing={this.handleClick} editing={this.state.isEditing}/>
+        postId={postId}
+        updatePosts={this.updatePosts}
+        isEditing={this.handleClick}
+        editing={true}/>
       );
     }
   }

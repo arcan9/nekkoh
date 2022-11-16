@@ -7,7 +7,7 @@ export default function Navigation(props) {
         <div className='nav-container'>
           <div className='d-md-flex justify-content-between'>
             <div className='d-flex align-items-center justify-content-center'>
-              <h1 className='nekkoh'><a href="#">Nekkoh</a></h1>
+              <h1 onClick={props.isEditing} className='nekkoh'><a href="#">Nekkoh</a></h1>
             </div>
             <div className='right-hand-nav'>
               <div className="input-group rounded search-input">
