@@ -13,9 +13,15 @@ a:link {
   text-decoration: none;
 }
 
+.fa-pen-to-square {
+  font-size: 25px;
+  color: #63b7e5;
+}
+
 a:hover,
 button:hover,
-.image-preview:hover {
+.image-preview:hover,
+.fa-pen-to-square:hover {
   cursor: pointer;
 }
 
