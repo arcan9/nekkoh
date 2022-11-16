@@ -53,14 +53,14 @@ export default class App extends React.Component {
     }
     if (route.path === 'createpost') {
       return (
-        <CreatePost updatePosts={this.updatePosts} />
+        <CreatePost updatePosts={this.updatePosts} editing={this.state.isEditing}/>
       );
     }
     if (route.path === 'editpost') {
       return (
         <CreatePost
         post={this.state.post}
-        postId={postId} updatePosts={this.updatePosts} isEditing={this.handleClick} />
+        postId={postId} updatePosts={this.updatePosts} isEditing={this.handleClick} editing={this.state.isEditing}/>
       );
     }
   }

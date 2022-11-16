@@ -105,13 +105,14 @@ export default class CreatePost extends React.Component {
 
   render() {
     const imgPreview = this.state.imagePreview;
-    console.log(this.props.editing);
     let onSubmitBehavior = null;
+    let buttonText = '';
 
     if (this.props.editing === true) {
+      buttonText = 'Edit';
       onSubmitBehavior = this.handleEdit;
-      console.log('form is currently on handleEdit and editing state is true');
     } else if (this.props.editing === false) {
+      buttonText = 'Post';
       onSubmitBehavior = this.handleSubmit;
     }
 
@@ -154,7 +155,7 @@ export default class CreatePost extends React.Component {
                 value={this.state.caption}
                 onChange={this.handleCaptionChange}
                 required />
-                <button type="submit" className="btn btn-info mt-2">Post</button>
+                <button type="submit" className="btn btn-info mt-2">{buttonText}</button>
               </div>
             </div>
           </div>
