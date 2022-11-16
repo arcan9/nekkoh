@@ -112,7 +112,7 @@ export default class CreatePost extends React.Component {
       buttonText = 'Edit';
       onSubmitBehavior = this.handleEdit;
     } else if (this.props.editing === false) {
-      buttonText = 'Post';
+      buttonText = 'New Post';
       onSubmitBehavior = this.handleSubmit;
     }
 
