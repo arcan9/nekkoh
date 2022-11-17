@@ -21,6 +21,38 @@ export default class CreatePost extends React.Component {
     this.hideModal = this.hideModal.bind(this);
   }
 
+  componentDidMount() {
+
+    if (this.props.editing === false) {
+      return;
+    }
+
+    const currentUserPosts = this.props.post;
+    const editingPostId = this.props.postId;
+
+    let index = 0;
+    // Find the index of the post with the matching postId in the state array.
+    for (let i = 0; i < currentUserPosts.length; i++) {
+      if (currentUserPosts[i].postId === editingPostId) {
+        index = i;
+      }
+    }
+
+    fetch(`/api/posts/${editingPostId}`)
+      .then(res => res.json())
+      .then(post => {
+        const postsCopy = this.props.post.slice();
+        postsCopy[index] = post;
+        this.setState({
+          caption: postsCopy[index].caption,
+          imagePreview: postsCopy[index].mediaFile
+        });
+        this.fileInputRef.current.value = null;
+        this.props.updatePosts(postsCopy);
+      });
+
+  }
+
   /* replaces image preview with the target file */
   handleImage(event) {
     const reader = new FileReader();

@@ -15,7 +15,7 @@ export default function UserPost(props) {
   const posts = [...props.post];
   // console.log('props.posts:', posts);
 
-  return posts.map(({ postId, mediaFile, caption }, index) => (
+  return posts.map(({ postId, mediaFile, caption, userId }, index) => (
     <div className='post-max-w' key={index}>
       <div className='post-w justify-content-center'>
         <div className='wrapper row d-flex'>
@@ -35,7 +35,7 @@ export default function UserPost(props) {
               <HeartIcon/>
               <ChatBubbleIcon />
               <LikesCount />
-              <Username />
+              <Username user={userId} post={props.post}/>
               {caption}
               <ViewComments />
               <TimeCreated />

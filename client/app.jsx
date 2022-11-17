@@ -3,6 +3,7 @@ import Home from './pages/home';
 import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
+import Comments from './components/comments';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -48,8 +49,11 @@ export default class App extends React.Component {
     const postId = this.state.route.params.get('postId');
     if (route.path === '') {
       return (
-        <UserPost post={this.state.post}
+        <>
+          <Comments currentUserId='2'/>
+          <UserPost post={this.state.post}
         isEditing={this.handleClick}/>
+        </>
       );
     }
     if (route.path === 'createpost') {
