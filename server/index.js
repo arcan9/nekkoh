@@ -19,10 +19,6 @@ const app = express();
 app.use(staticMiddleware);
 app.use(express.json());
 
-// app.get('/api/hello', (req, res) => {
-//   res.json({ hello: 'world' });
-// });
-
 app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
   const { caption } = req.body;
   const userId = 1;
@@ -86,6 +82,21 @@ app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
         return;
       }
       res.json(post);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/posts/:postId', (req, res, next) => {
+  const { postId } = req.params;
+  const sql = `
+    DELETE FROM "posts"
+          WHERE "postId" = $1
+  `;
+  const values = [postId];
+
+  db.query(sql, values)
+    .then(result => {
+      res.sendStatus(204);
     })
     .catch(err => next(err));
 });
