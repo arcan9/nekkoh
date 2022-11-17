@@ -27,16 +27,20 @@ export default function UserPost(props) {
           <div className='col-md-6'>
             <div className='user justify-content-between'>
               <div className='col-sm-6'>
-                <p className='text-sm-start'>
+                <div className='text-sm-start'>
                   <Username
                   user={userId}
                   post={props.post}/>
-                </p>
+                </div>
               </div>
               <div className='col-sm-6 text-sm-end'>
-                <EditButton
+                {
+                  userId !== 1
+                    ? null
+                    : <EditButton
                 id={postId}
                 isEditing={props.isEditing}/>
+                }
               </div>
             </div>
             <div className='text-sm-start'>

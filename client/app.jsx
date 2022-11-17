@@ -39,8 +39,6 @@ export default class App extends React.Component {
     });
   }
 
-  // getUsername()
-
   handleClick() {
     this.setState({
       isEditing: !this.state.isEditing
