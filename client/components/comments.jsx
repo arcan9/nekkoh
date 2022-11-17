@@ -8,13 +8,18 @@ export default class Comments extends React.Component {
     };
   }
 
-  getBackendComments() {
-
+  componentDidMount() {
+    fetch('/api/comments')
+      .then(res => res.json())
+      .then(comments => this.setState({
+        backendComments: comments
+      }));
   }
 
   render() {
-    return (
-      <div>Comments</div>
-    );
+    const backendComments = this.state.backendComments;
+    return backendComments.map(({ comment, commentId }) => (
+      <div key={commentId}>{comment}</div>
+    ));
   }
 }

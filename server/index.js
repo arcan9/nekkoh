@@ -42,26 +42,39 @@ app.get('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/appUsers/:userId', (req, res, next) => {
-  const { userId } = req.params;
-  const sql = `
-    SELECT "username"
-      FROM "appUsers"
-     WHERE "userId" = $1
-  `;
-  const values = [userId];
+// app.get('/api/appUsers/:userId', (req, res, next) => {
+//   const { userId } = req.params;
+//   const sql = `
+//     SELECT "username"
+//       FROM "appUsers"
+//      WHERE "userId" = $1
+//   `;
+//   const values = [userId];
 
-  db.query(sql, values)
+//   db.query(sql, values)
+//     .then(result => {
+//       const [username] = result.rows;
+//       console.log(username);
+//       if (!username) {
+//         res.status(404).json({
+//           error: `cannot find user with username ${username}`
+//         });
+//         return;
+//       }
+//       res.json(username);
+//     })
+//     .catch(err => next(err));
+// });
+
+app.get('/api/comments/', (req, res, next) => {
+  const sql = `
+    SELECT *
+    FROM "comments"
+  `;
+
+  db.query(sql)
     .then(result => {
-      const [username] = result.rows;
-      console.log(username);
-      if (!username) {
-        res.status(404).json({
-          error: `cannot find user with username ${username}`
-        });
-        return;
-      }
-      res.json(username);
+      res.json(result.rows);
     })
     .catch(err => next(err));
 });
@@ -160,17 +173,39 @@ app.delete('/api/posts/:postId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/posts', (req, res, next) => {
+app.get('/api/posts/', (req, res, next) => {
+  // const { userId } = req.params;
   const sql = `
-    select *
-      from "posts"
+    select
+      u."username",
+      u."userId",
+      "postId",
+      "mediaFile",
+      "caption",
+    p."createdAt"
+    from "posts" as p
+    inner join "appUsers" as u using("userId")
   `;
+  // const values = [userId];
   db.query(sql)
     .then(result => {
       res.json(result.rows);
     })
     .catch(err => next(err));
 });
+
+// app.get('/api/posts/', (req, res, next) => {
+//   const sql = `
+//     select *
+//     from "posts"
+
+//   `;
+//   db.query(sql)
+//     .then(result => {
+//       res.json(result.rows);
+//     })
+//     .catch(err => next(err));
+// });
 
 app.use(errorMiddleware);
 

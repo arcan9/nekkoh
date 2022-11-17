@@ -3,7 +3,7 @@ import Home from './pages/home';
 import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
-import Comments from './components/comments';
+// import Comments from './components/comments';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       post: [],
       isEditing: false
+
     };
     this.updatePosts = this.updatePosts.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -28,7 +29,7 @@ export default class App extends React.Component {
   }
 
   updatePosts(update) {
-    fetch('/api/posts')
+    fetch('/api/posts/')
       .then(res => res.json())
       .then(update => this.setState({
         post: update
@@ -37,6 +38,8 @@ export default class App extends React.Component {
       isEditing: false
     });
   }
+
+  // getUsername()
 
   handleClick() {
     this.setState({
@@ -49,11 +52,8 @@ export default class App extends React.Component {
     const postId = this.state.route.params.get('postId');
     if (route.path === '') {
       return (
-        <>
-          <Comments currentUserId='2'/>
-          <UserPost post={this.state.post}
+        <UserPost post={this.state.post}
         isEditing={this.handleClick}/>
-        </>
       );
     }
     if (route.path === 'createpost') {

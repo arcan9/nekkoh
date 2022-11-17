@@ -14,29 +14,38 @@ export default function UserPost(props) {
   }
 
   const posts = [...props.post];
-  // console.log('props.posts:', posts);
 
   return posts.map(({ postId, mediaFile, caption, userId }, index) => (
     <div className='post-max-w' key={index}>
       <div className='post-w justify-content-center'>
         <div className='wrapper row d-flex'>
           <div className='col-md-6'>
-            <img src={mediaFile} className='rounded img-fluid'/>
+            <img
+            src={mediaFile}
+            className='rounded img-fluid'/>
           </div>
           <div className='col-md-6'>
             <div className='user justify-content-between'>
               <div className='col-sm-6'>
-                <p className='text-sm-start'>catnip_13</p>
+                <p className='text-sm-start'>
+                  <Username
+                  user={userId}
+                  post={props.post}/>
+                </p>
               </div>
               <div className='col-sm-6 text-sm-end'>
-                <EditButton id={postId} isEditing={props.isEditing}/>
+                <EditButton
+                id={postId}
+                isEditing={props.isEditing}/>
               </div>
             </div>
             <div className='text-sm-start'>
               <HeartIcon/>
               <ChatBubbleIcon />
               <LikesCount />
-              <Username user={userId} post={props.post}/>
+              <Username
+              user={userId}
+              post={props.post}/>
               {caption}
               <ViewComments />
               <TimeCreated />
