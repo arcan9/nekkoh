@@ -4,6 +4,7 @@ import HeartIcon from './heart-icon';
 import ChatBubbleIcon from './chat-bubble-icon';
 import LikesCount from './likes-count';
 import Username from './username';
+// import GetUsername from './username';
 import ViewComments from './view-comments';
 import TimeCreated from './time-created';
 

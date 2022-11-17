@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Username(props) {
-  console.log('userId:', props.user);
+  // console.log('userId:', props.user);
   console.log('post:', props.post);
 
   const userId = props.user;
@@ -10,22 +10,26 @@ export default function Username(props) {
   let index = 0;
 
   for (let i = 0; i < post.length; i++) {
-    if (post[i].postId === userId) {
+    if (post[i].userId === userId) {
       index = i;
-      console.log('index:', index);
     }
   }
 
-  fetch(`/api/posts/${userId}`)
+  fetch(`/api/appUsers/${userId}`)
     .then(res => res.json())
     .then(data => {
       const postCopy = post.slice();
       postCopy[index] = data;
-      console.log('data:', data);
+      GetUsername(postCopy[index].username);
+      // return postCopy[index].username;
     })
     .catch(err => console.error(err));
 
+}
+
+function GetUsername(username) {
+  console.log('username:', username);
   return (
-    <div>{props.user}</div>
+    <div>{username}</div>
   );
 }
