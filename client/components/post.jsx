@@ -4,9 +4,9 @@ import HeartIcon from './heart-icon';
 import ChatBubbleIcon from './chat-bubble-icon';
 import LikesCount from './likes-count';
 import Username from './username';
-// import GetUsername from './username';
 import ViewComments from './view-comments';
 import TimeCreated from './time-created';
+import Comments from './comments';
 
 export default function UserPost(props) {
   if (props.post.length === 0) {
@@ -51,7 +51,8 @@ export default function UserPost(props) {
               user={userId}
               post={props.post}/>
               {caption}
-              <ViewComments />
+              {/* <ViewComments /> */}
+              <Comments postId={postId} user={userId}/>
               <TimeCreated />
             </div>
           </div>

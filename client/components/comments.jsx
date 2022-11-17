@@ -17,6 +17,8 @@ export default class Comments extends React.Component {
   }
 
   render() {
+    console.log('postId:', this.props.postId);
+    console.log('userId:', this.props.user);
     const backendComments = this.state.backendComments;
     return backendComments.map(({ comment, commentId }) => (
       <div key={commentId}>{comment}</div>
