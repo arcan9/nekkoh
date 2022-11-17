@@ -17,15 +17,21 @@ export default class Comments extends React.Component {
   }
 
   render() {
+    console.log('backend comments:', this.state.backendComments);
     const backendComments = this.state.backendComments;
     const postId = this.props.postId;
 
     const comment = backendComments.find(c => c.postId === postId);
+    const username = backendComments.find(c => c.postId === postId);
+    console.log('username:', username);
 
     // render the comment only if it exists
     if (typeof comment !== 'undefined') {
       return (
-        <div>{comment.comment}</div>
+        <>
+          <div>{username.username}</div>
+          <div>{comment.comment}</div>
+        </>
       );
     }
   }

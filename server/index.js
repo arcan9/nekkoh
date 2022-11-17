@@ -69,18 +69,20 @@ app.get('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
 app.get('/api/comments/', (req, res, next) => {
   const sql = `
     SELECT
+    u."username",
     c."createdAt",
     c."userId",
       "comment",
       "commentId",
     p."postId"
     FROM "comments" as c
+    JOIN "appUsers" as u using ("userId")
     JOIN "posts" as p using ("postId")
   `;
 
   db.query(sql)
     .then(result => {
-      console.log(result.rows);
+      // console.log(result.rows);
       res.json(result.rows);
     })
     .catch(err => next(err));

@@ -51,4 +51,8 @@ INSERT INTO "comments" (
   2,
   1,
   'So cute!! Where can I get one? :)'
+), (
+  1,
+  2,
+  'that''s a hefty breakfast'
 );
