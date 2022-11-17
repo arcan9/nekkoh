@@ -80,6 +80,7 @@ app.get('/api/comments/', (req, res, next) => {
 
   db.query(sql)
     .then(result => {
+      console.log(result.rows);
       res.json(result.rows);
     })
     .catch(err => next(err));

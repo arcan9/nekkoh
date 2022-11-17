@@ -52,7 +52,7 @@ export default function UserPost(props) {
               post={props.post}/>
               {caption}
               {/* <ViewComments /> */}
-              <Comments postId={postId} user={userId}/>
+              <Comments postId={postId} post={props.post}/>
               <TimeCreated />
             </div>
           </div>
