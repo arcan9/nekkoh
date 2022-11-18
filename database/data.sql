@@ -55,4 +55,12 @@ INSERT INTO "comments" (
   1,
   2,
   'that''s a hefty breakfast'
+), (
+  3,
+  1,
+  'let him explore the whole yard. 😁'
+), (
+  3,
+  2,
+  'looks like he loves it!'
 );

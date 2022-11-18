@@ -20,40 +20,62 @@ export default class Comments extends React.Component {
 
   showComments() {
     this.setState({
-      commentsExist: true
+      commentsExist: !this.state.commentsExist
     });
   }
 
   render() {
     // console.log('backend comments:', this.state.backendComments);
-    const backendComments = this.state.backendComments;
     const postId = this.props.postId;
+    const backendComments = this.state.backendComments;
+    // const postId = this.props.postId;
+    // console.log(postId);
+    // console.log(backendComments.postId);
 
-    const comment = backendComments.find(c => c.postId === postId);
-    const username = backendComments.find(c => c.postId === postId);
+    // const comment = backendComments.filter(c => c.postId === postId);
+    // const username = backendComments.filter(c => c.postId === postId);
+    const commentsCopy = [...backendComments];
+    // console.log('commentsCopy:', commentsCopy);
 
-    let userComments = null;
+    // if (typeof commentsCopy !== 'undefined') {
+    //   return commentsCopy.map(({ postId, commentId, userId, comment, username }) => (
+
+    //     <div key={commentId}>
+    //       <div className='username'>{username}</div>
+    //       <div className='comment'>{comment}</div>
+    //     </div>
+    //   ));
+    // }
+    let commentary = null;
+
+    if (typeof commentsCopy === 'undefined') {
+      return;
+    }
 
     if (this.state.commentsExist === true) {
-      userComments =
-        <div className='row mt-2'>
-          <div className='col-md-12'>
-            <div>{username.username}</div>
-            <div className='mt-1'>{comment.comment}</div>
+      commentary = commentsCopy.map(data => {
+        return (
+          <div key={data.commentId}>
+            {
+              postId === data.postId
+                ? (
+                  <div>
+                    <div>{data.username}</div>
+                    <div>{data.comment}</div>
+                  </div>
+                  )
+                : null
+            }
           </div>
-        </div>;
+        );
+      });
     }
 
-    // render the comment only if it exists
-    if (typeof comment !== 'undefined' || typeof username !== 'undefined') {
-      return (
-        <>
-          <div className='mt-4'>
-            <a className='view-comments' onClick={this.showComments}>View Comments</a>
-          </div>
-          {userComments}
-        </>
-      );
-    }
+    return (
+      <>
+        <div><a onClick={this.showComments}>View Comments</a></div>
+        <div>{commentary}</div>
+      </>
+    );
   }
 }
