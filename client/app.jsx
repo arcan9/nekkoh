@@ -3,6 +3,7 @@ import Home from './pages/home';
 import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
+// import Comments from './components/comments';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       post: [],
       isEditing: false
+
     };
     this.updatePosts = this.updatePosts.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -27,7 +29,7 @@ export default class App extends React.Component {
   }
 
   updatePosts(update) {
-    fetch('/api/posts')
+    fetch('/api/posts/')
       .then(res => res.json())
       .then(update => this.setState({
         post: update
@@ -74,6 +76,7 @@ export default class App extends React.Component {
     return (
       <>
         <Home isEditing={() => { this.setState({ isEditing: false }); }}/>
+        {/* <Comments /> */}
         {this.renderPage()}
       </>
     );

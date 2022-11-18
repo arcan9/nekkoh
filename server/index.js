@@ -19,6 +19,75 @@ const app = express();
 app.use(staticMiddleware);
 app.use(express.json());
 
+app.get('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
+  const { postId } = req.params;
+  const sql = `
+    select *
+      from "posts"
+     where "postId" = $1
+  `;
+  const values = [postId];
+
+  db.query(sql, values)
+    .then(result => {
+      const [post] = result.rows;
+      if (!post) {
+        res.status(404).json({
+          error: `cannot find post with the postId ${postId}`
+        });
+        return;
+      }
+      res.json(post);
+    })
+    .catch(err => next(err));
+});
+
+// app.get('/api/appUsers/:userId', (req, res, next) => {
+//   const { userId } = req.params;
+//   const sql = `
+//     SELECT "username"
+//       FROM "appUsers"
+//      WHERE "userId" = $1
+//   `;
+//   const values = [userId];
+
+//   db.query(sql, values)
+//     .then(result => {
+//       const [username] = result.rows;
+//       console.log(username);
+//       if (!username) {
+//         res.status(404).json({
+//           error: `cannot find user with username ${username}`
+//         });
+//         return;
+//       }
+//       res.json(username);
+//     })
+//     .catch(err => next(err));
+// });
+
+app.get('/api/comments/', (req, res, next) => {
+  const sql = `
+    SELECT
+    u."username",
+    c."createdAt",
+    c."userId",
+      "comment",
+      "commentId",
+    p."postId"
+    FROM "comments" as c
+    JOIN "appUsers" as u using ("userId")
+    JOIN "posts" as p using ("postId")
+  `;
+
+  db.query(sql)
+    .then(result => {
+      // console.log(result.rows);
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
   const { caption } = req.body;
   const userId = 1;
@@ -46,7 +115,6 @@ app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
   const { caption } = req.body;
   const { postId } = req.params;
   const userId = 1;
-  const imgUrl = path.join('/images', req.file.filename);
 
   if (typeof caption !== 'string') {
     res.status(400).json({
@@ -55,14 +123,26 @@ app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
     return;
   }
 
-  if (typeof imgUrl !== 'string') {
-    res.status(400).json({
-      error: 'imgUrl (string) is a required field'
-    });
-    return;
-  }
+  let sql = `
+    UPDATE "posts"
+       SET "caption" = $1,
+           "userId" = $2
+     WHERE "postId" = $3
+     RETURNING *
+  `;
+  let values = [caption, userId, postId];
 
-  const sql = `
+  // if a new file is being uploaded, update the database with said file
+  if (typeof req.file !== 'undefined') {
+    const imgUrl = path.join('/images', req.file.filename);
+
+    if (typeof imgUrl !== 'string') {
+      res.status(400).json({
+        error: 'imgUrl (string) is a required field'
+      });
+      return;
+    }
+    sql = `
     UPDATE "posts"
        SET "caption" = $1,
            "mediaFile" = $2,
@@ -70,7 +150,8 @@ app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
      WHERE "postId" = $4
      RETURNING *
   `;
-  const values = [caption, imgUrl, userId, postId];
+    values = [caption, imgUrl, userId, postId];
+  }
 
   db.query(sql, values)
     .then(result => {
@@ -101,11 +182,20 @@ app.delete('/api/posts/:postId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/posts', (req, res, next) => {
+app.get('/api/posts/', (req, res, next) => {
+  // const { userId } = req.params;
   const sql = `
-    select *
-      from "posts"
+    select
+      u."username",
+      u."userId",
+      "postId",
+      "mediaFile",
+      "caption",
+    p."createdAt"
+    from "posts" as p
+    inner join "appUsers" as u using("userId")
   `;
+  // const values = [userId];
   db.query(sql)
     .then(result => {
       res.json(result.rows);

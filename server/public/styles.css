@@ -13,6 +13,10 @@ a:link {
   text-decoration: none;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .fa-pen-to-square {
   font-size: 25px;
   color: #63b7e5;
@@ -25,6 +29,16 @@ a.delete {
 
 a.delete:hover {
   color: #465863;
+}
+
+a.view-comments {
+  text-decoration: none;
+  color: rgb(154, 159, 168);
+}
+
+a.view-comments:hover {
+  text-decoration: underline;
+  color: #63b7e5;
 }
 
 a:hover,
@@ -41,8 +55,7 @@ nav {
 div.nav-container {
   max-width: 75%;
   margin: 0 auto;
-  padding: 0 1.5rem;
-  margin-top: 20px;
+  padding: 1.25rem 1.5rem 0;
 }
 
 div.wrapper {
@@ -57,6 +70,7 @@ div.wrapper {
 h1.nekkoh {
   font-family: "Carter One", cursive;
   font-size: 38px;
+  color: #63b7e5;
 }
 
 div.navlist ul {
@@ -76,6 +90,24 @@ div.user {
 
 i.fa-bars {
   font-size: 30px;
+}
+
+i.likes-heart {
+  font-size: 18px;
+  color: rgb(219, 123, 99);
+}
+
+div.comment-user {
+  font-weight: bold;
+}
+
+div.comment-user,
+div.comment {
+  font-size: 14px;
+}
+
+div.post-user {
+  font-weight: bold;
 }
 
 textarea {
