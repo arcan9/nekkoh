@@ -4,7 +4,7 @@ import HeartIcon from './heart-icon';
 import ChatBubbleIcon from './chat-bubble-icon';
 import LikesCount from './likes-count';
 import Username from './username';
-import ViewComments from './view-comments';
+// import ViewComments from './view-comments';
 import TimeCreated from './time-created';
 import Comments from './comments';
 
@@ -16,7 +16,7 @@ export default function UserPost(props) {
   const posts = [...props.post];
 
   return posts.map(({ postId, mediaFile, caption, userId }, index) => (
-    <div className='post-max-w' key={index}>
+    <div className='post-max-w' key={postId}>
       <div className='post-w justify-content-center'>
         <div className='wrapper row d-flex'>
           <div className='col-md-6'>
@@ -52,11 +52,11 @@ export default function UserPost(props) {
               post={props.post}/>
               {caption}
               {/* <ViewComments /> */}
+              <TimeCreated />
               <Comments
               postId={postId}
               post={props.post}
               user={userId}/>
-              <TimeCreated />
             </div>
           </div>
         </div>

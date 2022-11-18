@@ -3,7 +3,7 @@ import Home from './pages/home';
 import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
-import Comments from './components/comments';
+// import Comments from './components/comments';
 
 export default class App extends React.Component {
   constructor(props) {
