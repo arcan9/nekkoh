@@ -88,6 +88,30 @@ app.get('/api/comments/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/comments/:postId', (req, res, next) => {
+  const { text } = req.body;
+  const { postId } = req.params;
+  const userId = 1;
+
+  if (!text) {
+    throw new ClientError(400, 'text is a required field');
+  }
+
+  const sql = `
+    INSERT INTO "comments"
+    ("comment", "userId", "postId")
+    VALUES ($1, $2, $3)
+    RETURNING *
+  `;
+  const values = [text, userId, postId];
+  db.query(sql, values)
+    .then(result => {
+      const [comment] = result.rows;
+      res.status(201).json(comment);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
   const { caption } = req.body;
   const userId = 1;
