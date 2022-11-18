@@ -92,6 +92,11 @@ i.fa-bars {
   font-size: 30px;
 }
 
+i.likes-heart {
+  font-size: 18px;
+  color: rgb(219, 123, 99);
+}
+
 div.comment-user {
   font-weight: bold;
 }

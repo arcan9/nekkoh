@@ -7,7 +7,10 @@ export default function Navigation(props) {
         <div className='nav-container'>
           <div className='d-md-flex justify-content-between'>
             <div className='d-flex align-items-center justify-content-center'>
-              <h1 onClick={props.isEditing} className='nekkoh'><a href="#">Nekkoh</a></h1>
+              <h1 onClick={props.isEditing}
+              className='nekkoh'>
+                <a href="#"><i className="fa-solid fa-cat me-3" />Nekkoh</a>
+              </h1>
             </div>
             <div className='right-hand-nav'>
               <div className="input-group rounded search-input">
@@ -21,7 +24,7 @@ export default function Navigation(props) {
                 <ul className=''>
                   <li onClick={props.isEditing}><a href="#">Home</a></li>
                   <li onClick={props.isEditing}><a href="#createpost">New Post</a></li>
-                  <li onClick={props.isEditing}>Likes</li>
+                  <li onClick={props.isEditing}><a><i className="fa-solid fa-heart likes-heart pt-2" /></a></li>
                 </ul>
               </div>
             </div>

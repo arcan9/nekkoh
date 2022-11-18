@@ -38,7 +38,7 @@ INSERT INTO "posts" (
     '/images/dog-with-bowl.jpg',
     2
   ), (
-    'I think it is time for a siesta!',
+    'I think it''s time for a siesta!',
     '/images/yawning-cat.jpg',
     3
   );
@@ -63,4 +63,8 @@ INSERT INTO "comments" (
   3,
   2,
   'looks like he loves it!'
+), (
+  2,
+  3,
+  '🥱 Now I feel like dozing off too...'
 );
