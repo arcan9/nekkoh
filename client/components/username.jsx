@@ -7,6 +7,6 @@ export default function Username(props) {
   const post = posts.find(p => p.userId === userId);
 
   return (
-    <div>{post.username}</div>
+    <div className='post-user'>{post.username}</div>
   );
 }

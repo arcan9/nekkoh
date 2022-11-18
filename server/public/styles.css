@@ -70,6 +70,7 @@ div.wrapper {
 h1.nekkoh {
   font-family: "Carter One", cursive;
   font-size: 38px;
+  color: #63b7e5;
 }
 
 div.navlist ul {
@@ -89,6 +90,19 @@ div.user {
 
 i.fa-bars {
   font-size: 30px;
+}
+
+div.comment-user {
+  font-weight: bold;
+}
+
+div.comment-user,
+div.comment {
+  font-size: 14px;
+}
+
+div.post-user {
+  font-weight: bold;
 }
 
 textarea {

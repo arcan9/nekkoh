@@ -22,12 +22,13 @@ export default function UserPost(props) {
           <div className='col-md-6'>
             <img
             src={mediaFile}
-            className='rounded img-fluid'/>
+            className='rounded img-fluid mb-3'/>
           </div>
           <div className='col-md-6'>
             <div className='user justify-content-between'>
               <div className='col-sm-6'>
                 <div className='text-sm-start'>
+                  <i className="fa-solid fa-paw" />
                   <Username
                   user={userId}
                   post={props.post}/>
@@ -50,7 +51,7 @@ export default function UserPost(props) {
               <Username
               user={userId}
               post={props.post}/>
-              {caption}
+              <div>{caption}</div>
               {/* <ViewComments /> */}
               <TimeCreated />
               <Comments
