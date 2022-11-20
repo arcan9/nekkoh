@@ -1,10 +1,8 @@
 import React from 'react';
 import EditButton from './edit-button';
 import HeartIcon from './heart-icon';
-import ChatBubbleIcon from './chat-bubble-icon';
 import LikesCount from './likes-count';
 import Username from './username';
-// import ViewComments from './view-comments';
 import TimeCreated from './time-created';
 import Comments from './comments';
 
@@ -15,7 +13,7 @@ export default function UserPost(props) {
 
   const posts = [...props.post];
 
-  return posts.map(({ postId, mediaFile, caption, userId }, index) => (
+  return posts.map(({ postId, mediaFile, caption, userId, createdAt }, index) => (
     <div className='post-max-w' key={postId}>
       <div className='post-w justify-content-center'>
         <div className='wrapper row d-flex ps-0 pe-0'>
@@ -47,13 +45,12 @@ export default function UserPost(props) {
 
             <div className='text-sm-start'>
               <HeartIcon/>
-              <ChatBubbleIcon />
               <LikesCount />
               <Username
               user={userId}
               post={props.post}/>
               <div>{caption}</div>
-              <TimeCreated />
+              <TimeCreated dateTime={createdAt}/>
               <Comments
               postId={postId}
               post={props.post}

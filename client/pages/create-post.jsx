@@ -1,5 +1,4 @@
 import React from 'react';
-import TimeCreated from '../components/time-created';
 import Modal from '../components/modal';
 
 export default class CreatePost extends React.Component {
@@ -137,7 +136,6 @@ export default class CreatePost extends React.Component {
   }
 
   handleDelete() {
-    // alert('Delete clicked');
     let index = 0;
 
     const currentUserPosts = this.props.post;
@@ -178,24 +176,19 @@ export default class CreatePost extends React.Component {
   }
 
   render() {
-    let imgPreview = null;
+    const imgPreview = this.state.imagePreview;
+    const caption = this.state.caption;
     let onSubmitBehavior = null;
     let deleteText = null;
     let buttonText = '';
     let modal = null;
-    let caption = '';
     let requiredStatus = false;
 
-    // console.log(this.props.isEditing);
-
     if (this.props.editing === true) {
-      caption = this.state.caption;
-      imgPreview = this.state.imagePreview;
       buttonText = 'Edit';
       deleteText = 'Delete';
       onSubmitBehavior = this.handleEdit;
     } else if (this.props.editing === false) {
-      imgPreview = 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg';
       buttonText = 'New Post';
       requiredStatus = true;
       onSubmitBehavior = this.handleSubmit;

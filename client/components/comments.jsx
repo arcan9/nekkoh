@@ -1,5 +1,6 @@
 import React from 'react';
 import CommentForm from './commentForm';
+import ChatBubbleIcon from './chat-bubble-icon';
 
 export default class Comments extends React.Component {
   constructor(props) {
@@ -7,10 +8,15 @@ export default class Comments extends React.Component {
     this.state = {
       backendComments: [],
       commentsExist: false,
-      showForm: false
+      showForm: false,
+      isEditing: false
     };
     this.showComments = this.showComments.bind(this);
     this.addComment = this.addComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
+    this.updateComment = this.updateComment.bind(this);
+    this.cancelComment = this.cancelComment.bind(this);
+    this.editComment = this.editComment.bind(this);
   }
 
   componentDidMount() {
@@ -43,10 +49,18 @@ export default class Comments extends React.Component {
         const commentsCopy = this.state.backendComments.slice();
         const newComments = commentsCopy.concat(comment);
         this.setState({
-          backendComments: newComments
+          backendComments: newComments,
+          isEditing: false
         });
       })
       .catch(err => console.error(err));
+  }
+
+  editComment(event) {
+    event.stopPropagation();
+    this.setState({
+      isEditing: true
+    });
   }
 
   deleteComment(event, id) {
@@ -62,10 +76,42 @@ export default class Comments extends React.Component {
         const commentsCopy = this.state.backendComments.slice();
         const updatedComments = commentsCopy.filter(c => c.commentId !== id);
         if (res.status === 204) {
-          this.setState({ backendComments: updatedComments });
+          this.setState({
+            backendComments: updatedComments,
+            isEditing: false
+          });
         }
       })
       .catch(err => console.error(err));
+  }
+
+  updateComment(text, id) {
+    const updateCommentObj = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    };
+
+    fetch(`/api/comments/${id}`, updateCommentObj)
+      .then(res => res.json())
+      .then(comment => {
+        const commentsCopy = this.state.backendComments.slice();
+        const updated = commentsCopy.find(c => c.commentId === id);
+        const result = commentsCopy.map(old => old.commentId === updated.commentId
+          ? comment
+          : old);
+        this.setState({
+          backendComments: result,
+          isEditing: false
+        });
+      })
+      .catch(err => console.error(err));
+  }
+
+  cancelComment() {
+    this.setState({
+      isEditing: false
+    });
   }
 
   render() {
@@ -74,6 +120,19 @@ export default class Comments extends React.Component {
     const commentsCopy = [...backendComments];
     let commentary = null;
     let form = null;
+
+    // show the form only when See More anchor is clicked
+    if (this.state.showForm) {
+      form =
+        <CommentForm postId={this.props.postId}
+        submitText='Post'
+        addComment={this.addComment}
+        isEditing={this.state.isEditing}/>;
+    }
+
+    if (this.state.isEditing) {
+      form = null;
+    }
 
     if (typeof commentsCopy === 'undefined') {
       return;
@@ -86,26 +145,53 @@ export default class Comments extends React.Component {
         return (
           <div key={data.commentId}>
             {
-              postId !== data.postId
+              postId === data.postId
                 ? (
-                    null
-                  )
-                : (
                   <div className='commentary-wrapper'>
                     <div className='row mt-2 comment-row'>
                       <div className='col-md-12 comment-user'>{data.username}</div>
-                      <div className='mt-1 comment'>{data.comment}</div>
+                      {
+                        this.state.isEditing === true && data.userId === 1
+                          ? (
+                            <CommentForm
+                            submitText='Edit'
+                            initialComment={data.comment}
+                            id={data.commentId}
+                            updateComment={this.updateComment}
+                            isEditing={this.state.isEditing}/>
+                            )
+                          : (
+                            <div className='mt-1 comment'>{data.comment}</div>
+                            )
+                      }
                       {
                         data.userId === 1
                           ? (
-                            <div onClick={event => this.deleteComment(event, data.commentId)}>
-                              <a>Delete</a>
-                            </div>
+                            <>
+                              <div onClick={event => this.editComment(event, data.commentId)}>
+                                <a className='edit-comment'>Edit</a>
+                              </div>
+                              <div onClick={event => this.deleteComment(event, data.commentId)}>
+                                <a className='delete-comment'>Delete</a>
+                              </div>
+                              {
+                                this.state.isEditing === true
+                                  ? (
+                                    <div onClick={this.cancelComment}>
+                                      <a className='cancel-comment'>Cancel</a>
+                                    </div>
+                                    )
+                                  : null
+                              }
+                            </>
                             )
                           : null
                       }
                     </div>
                   </div>
+                  )
+                : (
+                    null
                   )
             }
           </div>
@@ -113,19 +199,11 @@ export default class Comments extends React.Component {
       });
     }
 
-    // show the form only when See More anchor is clicked
-    if (this.state.showForm === true) {
-      form =
-        <CommentForm postId={this.props.postId}
-        submitText='Post'
-        addComment={this.addComment}/>;
-    }
-
     return (
       <>
         <div className='mt-3'>
           <a className='view-comments'
-          onClick={this.showComments}>See More</a>
+          onClick={this.showComments}><ChatBubbleIcon /></a>
         </div>
         {commentary}
         {form}

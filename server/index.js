@@ -204,6 +204,33 @@ app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.patch('/api/comments/:commentId', (req, res, next) => {
+  const { text } = req.body;
+  const { commentId } = req.params;
+  const userId = 1;
+  console.log(commentId);
+
+  const sql = `
+    UPDATE "comments"
+      SET "comment" = $1,
+          "userId" = $2
+    WHERE "commentId" = $3
+    RETURNING *
+  `;
+  const values = [text, userId, commentId];
+
+  db.query(sql, values)
+    .then(result => {
+      const [comment] = result.rows;
+      if (!comment) {
+        throw new ClientError(400, `cannot find comment with the commentId ${commentId}`);
+      } else {
+        res.json(comment);
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.delete('/api/posts/:postId', (req, res, next) => {
   const { postId } = req.params;
   const sql = `

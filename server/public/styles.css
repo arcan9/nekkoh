@@ -1,6 +1,7 @@
 body {
   font-family: Roboto, sans-serif;
   background-color: #fafafa;
+  color: rgb(55, 53, 53)
 
   /* font-family: 'Carter One', cursive; */
 }
@@ -17,9 +18,9 @@ a:link {
   display: none !important;
 }
 
-.fa-pen-to-square {
+i.fa-pen-to-square {
   font-size: 25px;
-  color: #63b7e5;
+  color: #3266d7;
 }
 
 a.delete {
@@ -37,8 +38,14 @@ a.view-comments {
 }
 
 a.view-comments:hover {
-  text-decoration: underline;
-  color: #63b7e5;
+  /* text-decoration: underline; */
+  color: #3266d7;
+}
+
+a.delete-comment {
+  color: rgb(154, 159, 168);
+  text-decoration: none;
+  font-size: 13px;
 }
 
 a:hover,
@@ -85,12 +92,6 @@ div.navlist ul > li {
 
 div.user {
   display: flex;
-
-  /* border-bottom: 0.1px solid #dbdbdb; */
-}
-
-div.minutes-ago {
-  border-bottom: 0.1px solid #dbdbdb;
 }
 
 i.fa-bars {
@@ -120,8 +121,17 @@ div.comment-row {
   padding: 8px;
 }
 
+div.timeago {
+  color: rgb(154, 159, 168);
+  border-bottom: 0.1px solid #dbdbdb;
+}
+
 span.post-user {
   font-weight: bold;
+}
+
+span.posted-on {
+  font-size: 14px;
 }
 
 textarea {
@@ -143,7 +153,7 @@ div.comment-btn-container {
 }
 
 button.comment-post-btn {
-  background-color: #63b7e5;
+  background-color: #3266d7;
   color: white;
   border-radius: 6px;
   border: none;
@@ -153,7 +163,7 @@ button.comment-post-btn {
 }
 
 button.comment-post-btn:disabled {
-  background-color: #a9d2e9;
+  background-color: #9ca8db;
 }
 
 /* MODAL */

@@ -21,7 +21,7 @@ CREATE TABLE "public"."posts" (
 	"postId" serial NOT NULL,
 	"mediaFile" TEXT NOT NULL,
 	"caption" TEXT NOT NULL,
-	"createdAt" TIMESTAMPTZ NOT NULL default now(),
+	"createdAt" TIMESTAMP NOT NULL default now(),
 	"userId" integer NOT NULL,
 	"locationId" integer DEFAULT NULL,
 	CONSTRAINT "posts_pk" PRIMARY KEY ("postId")
