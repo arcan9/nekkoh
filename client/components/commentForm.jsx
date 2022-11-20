@@ -4,8 +4,7 @@ export default class CommentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      username: ''
+      text: ''
     };
     this.commentSubmit = this.commentSubmit.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
@@ -13,7 +12,7 @@ export default class CommentForm extends React.Component {
 
   commentSubmit(event) {
     event.preventDefault();
-    this.props.handleSubmit(this.state.text);
+    this.props.addComment(this.state.text);
     this.setState({ text: '' });
   }
 
@@ -27,23 +26,24 @@ export default class CommentForm extends React.Component {
     const { text } = this.state;
     const enabled = text.length > 0;
     return (
-      <>
-        <div>CommentForm</div>
-        <form onSubmit={this.commentSubmit}>
-          <textarea id='comment-text-area'
-          cols="30"
-          rows="4"
+      <form onSubmit={this.commentSubmit}>
+        <div className='row d-flex'>
+          <div className='col-md-10'>
+            <textarea id='comment-text-area'
+          rows="2"
           value={this.state.text}
           onChange={this.handleCommentChange}/>
-          <div>
+          </div>
+          <div className='comment-btn-container col-md-2'>
             <button type='submit'
-            className='comment-post-anchor'
+            className='comment-post-btn'
             disabled={!enabled}>
               {this.props.submitText}
             </button>
           </div>
-        </form>
-      </>
+        </div>
+        {/* <div className='d-flex' /> */}
+      </form>
     );
   }
 }

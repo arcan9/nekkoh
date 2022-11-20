@@ -18,32 +18,33 @@ export default function UserPost(props) {
   return posts.map(({ postId, mediaFile, caption, userId }, index) => (
     <div className='post-max-w' key={postId}>
       <div className='post-w justify-content-center'>
-        <div className='wrapper row d-flex'>
-          <div className='col-md-6'>
-            <img
-            src={mediaFile}
-            className='rounded img-fluid mb-3'/>
-          </div>
-          <div className='col-md-6'>
-            <div className='user justify-content-between'>
-              <div className='col-sm-6'>
-                <div className='text-sm-start'>
-                  <i className="fa-solid fa-paw" />
-                  <Username
+        <div className='wrapper row d-flex ps-0 pe-0'>
+          <div className='user justify-content-between'>
+            <div className='col-sm-6'>
+              <div className='text-sm-start'>
+                <i className="fa-solid fa-paw me-2" />
+                <Username
                   user={userId}
                   post={props.post}/>
-                </div>
               </div>
-              <div className='col-sm-6 text-sm-end'>
-                {
+            </div>
+            <div className='col-sm-6 text-sm-end'>
+              {
                   userId !== 1
                     ? null
                     : <EditButton
                 id={postId}
-                isEditing={props.isEditing}/>
+                editing={props.editing}/>
                 }
-              </div>
             </div>
+          </div>
+          <div className='flex-column-reverse p-0 mt-2'>
+            <img
+            src={mediaFile}
+            className='img-fluid'/>
+          </div>
+          <div className='flex-column-reverse'>
+
             <div className='text-sm-start'>
               <HeartIcon/>
               <ChatBubbleIcon />
@@ -52,7 +53,6 @@ export default function UserPost(props) {
               user={userId}
               post={props.post}/>
               <div>{caption}</div>
-              {/* <ViewComments /> */}
               <TimeCreated />
               <Comments
               postId={postId}

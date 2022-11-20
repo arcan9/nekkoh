@@ -85,6 +85,11 @@ div.navlist ul > li {
 
 div.user {
   display: flex;
+
+  /* border-bottom: 0.1px solid #dbdbdb; */
+}
+
+div.minutes-ago {
   border-bottom: 0.1px solid #dbdbdb;
 }
 
@@ -106,12 +111,49 @@ div.comment {
   font-size: 14px;
 }
 
-div.post-user {
+div.commentary-wrapper {
+  background-color: rgb(231, 231, 231);
+  border-radius: 6px;
+}
+
+div.comment-row {
+  padding: 8px;
+}
+
+span.post-user {
   font-weight: bold;
 }
 
 textarea {
   width: 100%;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+#comment-text-area {
+  display: inline;
+}
+
+div.comment-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0;
+  margin-top: 5px;
+}
+
+button.comment-post-btn {
+  background-color: #63b7e5;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  padding: 5px 8px;
+  max-width: 60px;
+  height: 50%;
+}
+
+button.comment-post-btn:disabled {
+  background-color: #a9d2e9;
 }
 
 /* MODAL */

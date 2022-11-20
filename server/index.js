@@ -103,11 +103,24 @@ app.post('/api/comments/:postId', (req, res, next) => {
     VALUES ($1, $2, $3)
     RETURNING *
   `;
+
   const values = [text, userId, postId];
   db.query(sql, values)
-    .then(result => {
-      const [comment] = result.rows;
-      res.status(201).json(comment);
+    .then(commentResult => {
+      const [comment] = commentResult.rows;
+
+      const userSql = `
+        SELECT "username" from "appUsers"
+        WHERE "userId" = $1
+      `;
+      const userParams = [userId];
+
+      return db.query(userSql, userParams)
+        .then(userResult => {
+          const [user] = userResult.rows;
+          comment.username = user.username;
+          res.status(201).json(comment);
+        });
     })
     .catch(err => next(err));
 });
@@ -198,6 +211,21 @@ app.delete('/api/posts/:postId', (req, res, next) => {
           WHERE "postId" = $1
   `;
   const values = [postId];
+
+  db.query(sql, values)
+    .then(result => {
+      res.sendStatus(204);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/comments/:commentId', (req, res, next) => {
+  const { commentId } = req.params;
+  const sql = `
+    DELETE FROM "comments"
+      WHERE "commentId" = $1
+  `;
+  const values = [commentId];
 
   db.query(sql, values)
     .then(result => {

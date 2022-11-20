@@ -15,7 +15,7 @@ export default class App extends React.Component {
 
     };
     this.updatePosts = this.updatePosts.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.editingStatus = this.editingStatus.bind(this);
   }
 
   componentDidMount() {
@@ -35,11 +35,11 @@ export default class App extends React.Component {
         post: update
       }));
     this.setState({
-      isEditing: false
+      isEditing: !this.state.isEditing
     });
   }
 
-  handleClick() {
+  editingStatus() {
     this.setState({
       isEditing: !this.state.isEditing
     });
@@ -51,7 +51,7 @@ export default class App extends React.Component {
     if (route.path === '') {
       return (
         <UserPost post={this.state.post}
-        isEditing={this.handleClick}/>
+        editing={false}/>
       );
     }
     if (route.path === 'createpost') {
@@ -66,7 +66,7 @@ export default class App extends React.Component {
         post={this.state.post}
         postId={postId}
         updatePosts={this.updatePosts}
-        isEditing={this.handleClick}
+        // isEditing={this.state.isEditing}
         editing={true}/>
       );
     }
@@ -75,8 +75,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        <Home isEditing={() => { this.setState({ isEditing: false }); }}/>
-        {/* <Comments /> */}
+        <Home editing={false}/>
         {this.renderPage()}
       </>
     );
