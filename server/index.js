@@ -42,30 +42,6 @@ app.get('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-// app.get('/api/appUsers/:userId', (req, res, next) => {
-//   const { userId } = req.params;
-//   const sql = `
-//     SELECT "username"
-//       FROM "appUsers"
-//      WHERE "userId" = $1
-//   `;
-//   const values = [userId];
-
-//   db.query(sql, values)
-//     .then(result => {
-//       const [username] = result.rows;
-//       console.log(username);
-//       if (!username) {
-//         res.status(404).json({
-//           error: `cannot find user with username ${username}`
-//         });
-//         return;
-//       }
-//       res.json(username);
-//     })
-//     .catch(err => next(err));
-// });
-
 app.get('/api/comments/', (req, res, next) => {
   const sql = `
     SELECT
@@ -82,7 +58,6 @@ app.get('/api/comments/', (req, res, next) => {
 
   db.query(sql)
     .then(result => {
-      // console.log(result.rows);
       res.json(result.rows);
     })
     .catch(err => next(err));
@@ -208,7 +183,6 @@ app.patch('/api/comments/:commentId', (req, res, next) => {
   const { text } = req.body;
   const { commentId } = req.params;
   const userId = 1;
-  console.log(commentId);
 
   const sql = `
     UPDATE "comments"

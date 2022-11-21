@@ -1,7 +1,7 @@
 import React from 'react';
 import EditButton from './edit-button';
 import HeartIcon from './heart-icon';
-import LikesCount from './likes-count';
+// import LikesCount from './likes-count';
 import Username from './username';
 import TimeCreated from './time-created';
 import Comments from './comments';
@@ -14,8 +14,8 @@ export default function UserPost(props) {
   const posts = [...props.post];
 
   return posts.map(({ postId, mediaFile, caption, userId, createdAt }, index) => (
-    <div className='post-max-w' key={postId}>
-      <div className='post-w justify-content-center'>
+    <div className='post-max-w col-6' key={postId}>
+      <div className='post-w-main justify-content-center'>
         <div className='wrapper row d-flex ps-0 pe-0'>
           <div className='user justify-content-between'>
             <div className='col-sm-6'>
@@ -45,7 +45,7 @@ export default function UserPost(props) {
 
             <div className='text-sm-start'>
               <HeartIcon/>
-              <LikesCount />
+              {/* <LikesCount /> */}
               <Username
               user={userId}
               post={props.post}/>

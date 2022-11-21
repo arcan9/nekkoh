@@ -96,8 +96,7 @@ export default class Comments extends React.Component {
       .then(res => res.json())
       .then(comment => {
         const commentsCopy = this.state.backendComments.slice();
-        const updated = commentsCopy.find(c => c.commentId === id);
-        const result = commentsCopy.map(old => old.commentId === updated.commentId
+        const result = commentsCopy.map(old => old.commentId === id
           ? comment
           : old);
         this.setState({
@@ -138,8 +137,6 @@ export default class Comments extends React.Component {
       return;
     }
 
-    // find matching postId and render the relevant
-    // comment and username on the post
     if (this.state.commentsExist === true) {
       commentary = commentsCopy.map((data, index) => {
         return (
@@ -167,23 +164,21 @@ export default class Comments extends React.Component {
                       {
                         data.userId === 1
                           ? (
-                            <>
-                              <div onClick={event => this.editComment(event, data.commentId)}>
-                                <a className='edit-comment'>Edit</a>
-                              </div>
-                              <div onClick={event => this.deleteComment(event, data.commentId)}>
-                                <a className='delete-comment'>Delete</a>
-                              </div>
+                            <div>
+                              <a onClick={event => this.editComment(event, data.commentId)}
+                                className='edit-comment'>Edit</a>
+                              <a onClick={event => this.deleteComment(event, data.commentId)}
+                                className='delete-comment'>Delete</a>
+
                               {
                                 this.state.isEditing === true
                                   ? (
-                                    <div onClick={this.cancelComment}>
-                                      <a className='cancel-comment'>Cancel</a>
-                                    </div>
+                                    <a onClick={this.cancelComment}
+                                      className='cancel-comment'>Cancel</a>
                                     )
                                   : null
                               }
-                            </>
+                            </div>
                             )
                           : null
                       }

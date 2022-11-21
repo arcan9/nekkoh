@@ -29,8 +29,8 @@ export default function TimeCreated(props) {
 
   return (
     <div className='mt-2 timeago'>
-      <span className='posted-on'>On</span>
-      <span className='minutes-ago mt-2 pb-2'>{day} {hour}:{minutes} {timeOfDay}</span>
+      <span className='posted-on'>On</span>&nbsp;
+      <span className='minutes-ago mt-2 pb-2'>{day} {hour}:{minutes}{timeOfDay}</span>
     </div>
   );
 }

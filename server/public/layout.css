@@ -12,6 +12,11 @@
   width: 40%;
 }
 
+.post-w-main {
+  margin: 20px auto;
+  width: 75%;
+}
+
 .col-2 {
   flex-basis: calc(100% / 2);
 }

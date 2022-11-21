@@ -21,8 +21,6 @@ export default class CommentForm extends React.Component {
     event.preventDefault();
     const updatedText = this.state.text;
     const commentId = this.props.id;
-    // console.log(updatedText);
-    // console.log(commentId);
     this.props.updateComment(updatedText, commentId);
   }
 

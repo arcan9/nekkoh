@@ -42,10 +42,13 @@ a.view-comments:hover {
   color: #3266d7;
 }
 
-a.delete-comment {
+a.delete-comment,
+a.edit-comment,
+a.cancel-comment {
   color: rgb(154, 159, 168);
   text-decoration: none;
   font-size: 13px;
+  margin: 0 3px;
 }
 
 a:hover,

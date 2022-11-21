@@ -18,10 +18,28 @@ INSERT INTO "appUsers" (
     'jackson_galaxy'
   ), (
     'Bob',
-    'Belcher',
+    'Catt',
     'person3@mail.com',
     '798',
-    'bob_belcher'
+    'bob_catt'
+  ), (
+    'Kay',
+    'Nine',
+    'person4@mail.com',
+    '101112',
+    'kay_nine9'
+  ), (
+    'Catnip',
+    'Catnip',
+    'person5@mail.com',
+    '161718',
+    'catnip13'
+  ), (
+    'Sam',
+    'French',
+    'person6@mail.com',
+    '192021',
+    'frenchies4lyfe'
   );
 
 
@@ -30,17 +48,38 @@ INSERT INTO "posts" (
   "mediaFile",
   "userId"
   ) VALUES (
-    'lorem ipsum',
+    'It''s her first time outside 😃',
     '/images/kitten.jpg',
     1
   ), (
     'hmm good boi deserves the best',
     '/images/dog-with-bowl.jpg',
+    4
+  ), (
+    'caught the perfect moment 😁',
+    '/images/hug_pexels-tehmasip-khan-6601811.jpg',
+    3
+  ), (
+    'king of the household',
+    '/images/candlelit_pexels-sami-aksu-14356302.jpg',
     2
   ), (
-    'I think it''s time for a siesta!',
-    '/images/yawning-cat.jpg',
-    3
+    'Up close and personal!',
+    'images/nose_pexels-amal-santhosh-662417.jpg',
+    4
+  ), (
+    'Vacation well spent with the best bud~',
+    'images/gofetch_pexels-thirdman-9313623.jpg',
+    1
+  ), (
+    'Can you be-leaf how cute I am?',
+    'images/indy.jpg',
+    5
+
+  ), (
+    'twinning :D',
+    'images/frenchies_pexels-robyn-porter-13966092.jpg',
+    6
   );
 
 INSERT INTO "comments" (
@@ -66,5 +105,29 @@ INSERT INTO "comments" (
 ), (
   2,
   3,
-  '🥱 Now I feel like dozing off too...'
+  'How cute!'
+), (
+  4,
+  8,
+  'sometimes they just be staring'
+), (
+  3,
+  8,
+  'aw what''s the little one''s name?'
+), (
+  6,
+  7,
+  'Don''t stop~ Be-LEAF-ing~ 🎵'
+), (
+  4,
+  7,
+  'not the puns...'
+), (
+  1,
+  7,
+  'green is his color'
+), (
+  2,
+  7,
+  'so cute! 🤩'
 );
