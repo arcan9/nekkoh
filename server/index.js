@@ -194,13 +194,23 @@ app.patch('/api/comments/:commentId', (req, res, next) => {
   const values = [text, userId, commentId];
 
   db.query(sql, values)
-    .then(result => {
-      const [comment] = result.rows;
+    .then(commentResult => {
+      const [comment] = commentResult.rows;
       if (!comment) {
         throw new ClientError(400, `cannot find comment with the commentId ${commentId}`);
-      } else {
-        res.json(comment);
       }
+
+      const userSql = `
+        SELECT "username" from "appUsers"
+        WHERE "userId" = $1
+      `;
+      const userParams = [userId];
+      return db.query(userSql, userParams)
+        .then(userResult => {
+          const [user] = userResult.rows;
+          comment.username = user.username;
+          res.status(201).json(comment);
+        });
     })
     .catch(err => next(err));
 });

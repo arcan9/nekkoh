@@ -32,7 +32,7 @@ export default class CommentForm extends React.Component {
 
   render() {
     const { text } = this.state;
-    let textValue = text;
+    let textValue = this.state.text;
     let onSubmitBehavior = this.commentSubmit;
 
     if (this.props.isEditing === true) {

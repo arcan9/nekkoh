@@ -80,7 +80,8 @@ div.wrapper {
 h1.nekkoh {
   font-family: "Carter One", cursive;
   font-size: 38px;
-  color: #63b7e5;
+
+  /* color: #63b7e5; */
 }
 
 div.navlist ul {
@@ -99,6 +100,11 @@ div.user {
 
 i.fa-bars {
   font-size: 30px;
+}
+
+i.fa-user {
+  font-size: 18px;
+  color: #3266d7;
 }
 
 i.likes-heart {

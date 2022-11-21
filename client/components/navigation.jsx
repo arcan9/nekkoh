@@ -25,6 +25,7 @@ export default function Navigation(props) {
                   <li onClick={props.isEditing}><a href="#">Home</a></li>
                   <li onClick={props.isEditing}><a href="#createpost">New Post</a></li>
                   <li onClick={props.isEditing}><a><i className="fa-solid fa-heart likes-heart pt-2" /></a></li>
+                  <li onClick={props.isEditing}><a><i className="fa-solid fa-user" /></a></li>
                 </ul>
               </div>
             </div>

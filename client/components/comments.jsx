@@ -9,7 +9,8 @@ export default class Comments extends React.Component {
       backendComments: [],
       commentsExist: false,
       showForm: false,
-      isEditing: false
+      isEditing: false,
+      isCommentActive: null
     };
     this.showComments = this.showComments.bind(this);
     this.addComment = this.addComment.bind(this);
@@ -56,10 +57,11 @@ export default class Comments extends React.Component {
       .catch(err => console.error(err));
   }
 
-  editComment(event) {
+  editComment(event, id) {
     event.stopPropagation();
     this.setState({
-      isEditing: true
+      isEditing: true,
+      isCommentActive: id
     });
   }
 
@@ -120,7 +122,7 @@ export default class Comments extends React.Component {
     let commentary = null;
     let form = null;
 
-    // show the form only when See More anchor is clicked
+    // show the form only when icon is clicked
     if (this.state.showForm) {
       form =
         <CommentForm postId={this.props.postId}
@@ -148,7 +150,9 @@ export default class Comments extends React.Component {
                     <div className='row mt-2 comment-row'>
                       <div className='col-md-12 comment-user'>{data.username}</div>
                       {
-                        this.state.isEditing === true && data.userId === 1
+                        this.state.isEditing === true &&
+                        data.userId === 1 &&
+                        this.state.isCommentActive === data.commentId
                           ? (
                             <CommentForm
                             submitText='Edit'
@@ -171,7 +175,8 @@ export default class Comments extends React.Component {
                                 className='delete-comment'>Delete</a>
 
                               {
-                                this.state.isEditing === true
+                                this.state.isEditing === true &&
+                                this.state.isCommentActive === data.commentId
                                   ? (
                                     <a onClick={this.cancelComment}
                                       className='cancel-comment'>Cancel</a>
