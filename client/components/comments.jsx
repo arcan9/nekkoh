@@ -139,7 +139,7 @@ export default class Comments extends React.Component {
       return;
     }
 
-    if (this.state.commentsExist === true) {
+    if (this.state.commentsExist) {
       commentary = commentsCopy.map((data, index) => {
         return (
           <div key={data.commentId}>
@@ -150,7 +150,7 @@ export default class Comments extends React.Component {
                     <div className='row mt-2 comment-row'>
                       <div className='col-md-12 comment-user'>{data.username}</div>
                       {
-                        this.state.isEditing === true &&
+                        this.state.isEditing &&
                         data.userId === 1 &&
                         this.state.isCommentActive === data.commentId
                           ? (
