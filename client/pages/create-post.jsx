@@ -1,6 +1,4 @@
 import React from 'react';
-import ViewComments from '../components/view-comments';
-import TimeCreated from '../components/time-created';
 import Modal from '../components/modal';
 
 export default class CreatePost extends React.Component {
@@ -138,7 +136,6 @@ export default class CreatePost extends React.Component {
   }
 
   handleDelete() {
-    // alert('Delete clicked');
     let index = 0;
 
     const currentUserPosts = this.props.post;
@@ -180,6 +177,7 @@ export default class CreatePost extends React.Component {
 
   render() {
     const imgPreview = this.state.imagePreview;
+    const caption = this.state.caption;
     let onSubmitBehavior = null;
     let deleteText = null;
     let buttonText = '';
@@ -212,7 +210,7 @@ export default class CreatePost extends React.Component {
           <form id='create-photo' onSubmit={ onSubmitBehavior }>
             <div className='post-w'>
               <div className='wrapper row d-flex'>
-                <div className='col-md-6'>
+                <div className='flex-column-reverse'>
                   <div className='img-upload'>
                     <img className='image-preview' src={imgPreview} onClick={event => {
                       event.preventDefault();
@@ -229,28 +227,21 @@ export default class CreatePost extends React.Component {
                       accept='.png, .jpg, .jpeg, .gif' />
                   </div>
                 </div>
-                <div className='col-md-6'>
-                  <div className='user'>
-                    <div className='col-2'>
-                      <p>catnip_13</p>
-                    </div>
-                  </div>
-                  <ViewComments />
-                  <TimeCreated />
+                <div className='flex-column-reverse'>
                   <textarea
                     id="photo-cap"
                     name="photo-cap"
                     rows="4"
                     cols="50"
                     placeholder='Write a caption...'
-                    value={this.state.caption}
+                    value={caption}
                     onChange={this.handleCaptionChange}
                     required />
                   <div className='row'>
                     <div className='col-md-6'>
                       <a onClick={this.showModal} className='delete'>{deleteText}</a>
                     </div>
-                    <div className='col-md-6 text-right'>
+                    <div className='col-md-6'>
                       <button type="submit" className="btn btn-info mt-2">{buttonText}</button>
                     </div>
                   </div>

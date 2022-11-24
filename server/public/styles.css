@@ -1,6 +1,7 @@
 body {
   font-family: Roboto, sans-serif;
   background-color: #fafafa;
+  color: rgb(55, 53, 53)
 
   /* font-family: 'Carter One', cursive; */
 }
@@ -17,9 +18,9 @@ a:link {
   display: none !important;
 }
 
-.fa-pen-to-square {
+i.fa-pen-to-square {
   font-size: 25px;
-  color: #63b7e5;
+  color: #3266d7;
 }
 
 a.delete {
@@ -37,8 +38,17 @@ a.view-comments {
 }
 
 a.view-comments:hover {
-  text-decoration: underline;
-  color: #63b7e5;
+  /* text-decoration: underline; */
+  color: #3266d7;
+}
+
+a.delete-comment,
+a.edit-comment,
+a.cancel-comment {
+  color: rgb(154, 159, 168);
+  text-decoration: none;
+  font-size: 13px;
+  margin: 0 3px;
 }
 
 a:hover,
@@ -70,7 +80,8 @@ div.wrapper {
 h1.nekkoh {
   font-family: "Carter One", cursive;
   font-size: 38px;
-  color: #63b7e5;
+
+  /* color: #63b7e5; */
 }
 
 div.navlist ul {
@@ -85,11 +96,15 @@ div.navlist ul > li {
 
 div.user {
   display: flex;
-  border-bottom: 0.1px solid #dbdbdb;
 }
 
 i.fa-bars {
   font-size: 30px;
+}
+
+i.fa-user {
+  font-size: 18px;
+  color: #3266d7;
 }
 
 i.likes-heart {
@@ -106,12 +121,58 @@ div.comment {
   font-size: 14px;
 }
 
-div.post-user {
+div.commentary-wrapper {
+  background-color: rgb(231, 231, 231);
+  border-radius: 6px;
+}
+
+div.comment-row {
+  padding: 8px;
+}
+
+div.timeago {
+  color: rgb(154, 159, 168);
+  border-bottom: 0.1px solid #dbdbdb;
+}
+
+span.post-user {
   font-weight: bold;
+}
+
+span.posted-on {
+  font-size: 14px;
 }
 
 textarea {
   width: 100%;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+#comment-text-area {
+  display: inline;
+}
+
+div.comment-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0;
+  margin-top: 5px;
+}
+
+button.comment-post-btn {
+  background-color: #3266d7;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  padding: 5px 8px;
+  max-width: 60px;
+  height: 50%;
+}
+
+button.comment-post-btn:disabled {
+  background-color: #9ca8db;
 }
 
 /* MODAL */

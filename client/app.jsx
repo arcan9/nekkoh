@@ -3,7 +3,6 @@ import Home from './pages/home';
 import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
-// import Comments from './components/comments';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -15,7 +14,7 @@ export default class App extends React.Component {
 
     };
     this.updatePosts = this.updatePosts.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.editingStatus = this.editingStatus.bind(this);
   }
 
   componentDidMount() {
@@ -35,11 +34,11 @@ export default class App extends React.Component {
         post: update
       }));
     this.setState({
-      isEditing: false
+      isEditing: !this.state.isEditing
     });
   }
 
-  handleClick() {
+  editingStatus() {
     this.setState({
       isEditing: !this.state.isEditing
     });
@@ -50,8 +49,12 @@ export default class App extends React.Component {
     const postId = this.state.route.params.get('postId');
     if (route.path === '') {
       return (
-        <UserPost post={this.state.post}
-        isEditing={this.handleClick}/>
+        <div className='container'>
+          <div className='row'>
+            <UserPost post={this.state.post}
+          editing={false}/>
+          </div>
+        </div>
       );
     }
     if (route.path === 'createpost') {
@@ -66,7 +69,6 @@ export default class App extends React.Component {
         post={this.state.post}
         postId={postId}
         updatePosts={this.updatePosts}
-        isEditing={this.handleClick}
         editing={true}/>
       );
     }
@@ -75,8 +77,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        <Home isEditing={() => { this.setState({ isEditing: false }); }}/>
-        {/* <Comments /> */}
+        <Home editing={false}/>
         {this.renderPage()}
       </>
     );

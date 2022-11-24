@@ -42,30 +42,6 @@ app.get('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-// app.get('/api/appUsers/:userId', (req, res, next) => {
-//   const { userId } = req.params;
-//   const sql = `
-//     SELECT "username"
-//       FROM "appUsers"
-//      WHERE "userId" = $1
-//   `;
-//   const values = [userId];
-
-//   db.query(sql, values)
-//     .then(result => {
-//       const [username] = result.rows;
-//       console.log(username);
-//       if (!username) {
-//         res.status(404).json({
-//           error: `cannot find user with username ${username}`
-//         });
-//         return;
-//       }
-//       res.json(username);
-//     })
-//     .catch(err => next(err));
-// });
-
 app.get('/api/comments/', (req, res, next) => {
   const sql = `
     SELECT
@@ -82,8 +58,44 @@ app.get('/api/comments/', (req, res, next) => {
 
   db.query(sql)
     .then(result => {
-      // console.log(result.rows);
       res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/comments/:postId', (req, res, next) => {
+  const { text } = req.body;
+  const { postId } = req.params;
+  const userId = 1;
+
+  if (!text) {
+    throw new ClientError(400, 'text is a required field');
+  }
+
+  const sql = `
+    INSERT INTO "comments"
+    ("comment", "userId", "postId")
+    VALUES ($1, $2, $3)
+    RETURNING *
+  `;
+
+  const values = [text, userId, postId];
+  db.query(sql, values)
+    .then(commentResult => {
+      const [comment] = commentResult.rows;
+
+      const userSql = `
+        SELECT "username" from "appUsers"
+        WHERE "userId" = $1
+      `;
+      const userParams = [userId];
+
+      return db.query(userSql, userParams)
+        .then(userResult => {
+          const [user] = userResult.rows;
+          comment.username = user.username;
+          res.status(201).json(comment);
+        });
     })
     .catch(err => next(err));
 });
@@ -167,6 +179,42 @@ app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.patch('/api/comments/:commentId', (req, res, next) => {
+  const { text } = req.body;
+  const { commentId } = req.params;
+  const userId = 1;
+
+  const sql = `
+    UPDATE "comments"
+      SET "comment" = $1,
+          "userId" = $2
+    WHERE "commentId" = $3
+    RETURNING *
+  `;
+  const values = [text, userId, commentId];
+
+  db.query(sql, values)
+    .then(commentResult => {
+      const [comment] = commentResult.rows;
+      if (!comment) {
+        throw new ClientError(400, `cannot find comment with the commentId ${commentId}`);
+      }
+
+      const userSql = `
+        SELECT "username" from "appUsers"
+        WHERE "userId" = $1
+      `;
+      const userParams = [userId];
+      return db.query(userSql, userParams)
+        .then(userResult => {
+          const [user] = userResult.rows;
+          comment.username = user.username;
+          res.status(201).json(comment);
+        });
+    })
+    .catch(err => next(err));
+});
+
 app.delete('/api/posts/:postId', (req, res, next) => {
   const { postId } = req.params;
   const sql = `
@@ -174,6 +222,21 @@ app.delete('/api/posts/:postId', (req, res, next) => {
           WHERE "postId" = $1
   `;
   const values = [postId];
+
+  db.query(sql, values)
+    .then(result => {
+      res.sendStatus(204);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/comments/:commentId', (req, res, next) => {
+  const { commentId } = req.params;
+  const sql = `
+    DELETE FROM "comments"
+      WHERE "commentId" = $1
+  `;
+  const values = [commentId];
 
   db.query(sql, values)
     .then(result => {
