@@ -1,5 +1,5 @@
 require('dotenv/config');
-const path = require('path');
+// const path = require('path');
 const pg = require('pg');
 const express = require('express');
 const ClientError = require('./client-error');
@@ -107,7 +107,8 @@ app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
     throw new ClientError(400, 'caption is a required field');
   }
 
-  const imgUrl = path.join('/images', req.file.filename);
+  // const imgUrl = path.join('/images', req.file.location);
+  const imgUrl = req.file.location;
 
   const sql = `
     INSERT INTO "posts" ("caption", "mediaFile", "userId")
@@ -146,7 +147,7 @@ app.patch('/api/posts/:postId', uploadsMiddleware, (req, res, next) => {
 
   // if a new file is being uploaded, update the database with said file
   if (typeof req.file !== 'undefined') {
-    const imgUrl = path.join('/images', req.file.filename);
+    const imgUrl = req.file.location;
 
     if (typeof imgUrl !== 'string') {
       res.status(400).json({
