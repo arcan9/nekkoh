@@ -47,7 +47,7 @@ export default class CommentForm extends React.Component {
           <div className='col-md-10'>
             <textarea id='comment-text-area'
           rows='2'
-          defaultValue={textValue}
+          value={textValue}
           onChange={this.handleCommentChange}/>
           </div>
           <div className='comment-btn-container col-md-2'>
