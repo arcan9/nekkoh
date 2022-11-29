@@ -4,7 +4,6 @@
 
 .post-max-w {
   margin: 0 auto;
-  max-width: 80%;
 }
 
 .post-w {
@@ -25,12 +24,6 @@
   display: inline;
 }
 
-/* @media screen and (min-width: 767px) {
-  button.comment-post-btn {
-    height: 50%;
-  }
-} */
-
 @media screen and (max-width: 767px) {
   .navlist ul {
     text-align: center;
@@ -47,8 +40,16 @@
     margin: 0 auto;
   }
 
-  .modal-wrapper .row {
+  .modal-wrapper {
     flex-direction: column-reverse;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .col-6 {
+    width: 100%;
   }
 
   .confirm-btn {
@@ -72,6 +73,10 @@
 @media screen and (max-width: 1023px) {
   .post-w {
     width: 75%;
+  }
+
+  .post-w-main {
+    width: 100%;
   }
 }
 

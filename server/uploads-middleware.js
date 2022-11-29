@@ -2,7 +2,6 @@ const path = require('path');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const { S3 } = require('@aws-sdk/client-s3');
-// const fs = require('fs');
 
 const s3 = new S3({
   region: process.env.AWS_S3_REGION,
@@ -37,19 +36,3 @@ const uploadsMiddleware = multer({
 // or the key of the FormData field you appended
 
 module.exports = uploadsMiddleware;
-
-// const imagesDirectory = path.join(__dirname, 'public/images');
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, callback) => {
-//     callback(null, imagesDirectory);
-//   },
-//   filename: (req, file, callback) => {
-//     const fileExtension = path.extname(file.originalname);
-//     const name = `${file.fieldname}-${Date.now()}${fileExtension}`;
-//     callback(null, name);
-//   }
-// });
-
-// const uploadsMiddleware = multer({ storage }).single('image');
-// connect us to S3 on AWS

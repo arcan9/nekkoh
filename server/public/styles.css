@@ -1,9 +1,7 @@
 body {
   font-family: Roboto, sans-serif;
   background-color: #fafafa;
-  color: rgb(55, 53, 53)
-
-  /* font-family: 'Carter One', cursive; */
+  color: rgb(55, 53, 53);
 }
 
 img {
@@ -38,7 +36,6 @@ a.view-comments {
 }
 
 a.view-comments:hover {
-  /* text-decoration: underline; */
   color: #3266d7;
 }
 
@@ -80,8 +77,6 @@ div.wrapper {
 h1.nekkoh {
   font-family: "Carter One", cursive;
   font-size: 38px;
-
-  /* color: #63b7e5; */
 }
 
 div.navlist ul {
@@ -201,7 +196,6 @@ button.comment-post-btn:disabled {
 }
 
 .modal-wrapper {
-  /* width: 300px; */
   background-color: white;
   padding: 14px 20px 21px;
   border-radius: 6px;
@@ -226,4 +220,34 @@ button.comment-post-btn:disabled {
 
 .confirm-btn {
   background-color: #63b7e5;
+}
+
+/* spinner */
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-dual-ring::after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0.5rem;
+  border-radius: 50%;
+  border: 6px solid #fcf;
+  border-color: #ccc transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

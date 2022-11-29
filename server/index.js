@@ -1,5 +1,4 @@
 require('dotenv/config');
-// const path = require('path');
 const pg = require('pg');
 const express = require('express');
 const ClientError = require('./client-error');
@@ -107,7 +106,6 @@ app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
     throw new ClientError(400, 'caption is a required field');
   }
 
-  // const imgUrl = path.join('/images', req.file.location);
   const imgUrl = req.file.location;
 
   const sql = `
@@ -247,7 +245,6 @@ app.delete('/api/comments/:commentId', (req, res, next) => {
 });
 
 app.get('/api/posts/', (req, res, next) => {
-  // const { userId } = req.params;
   const sql = `
     select
       u."username",
@@ -259,7 +256,6 @@ app.get('/api/posts/', (req, res, next) => {
     from "posts" as p
     inner join "appUsers" as u using("userId")
   `;
-  // const values = [userId];
   db.query(sql)
     .then(result => {
       res.json(result.rows);

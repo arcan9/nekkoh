@@ -3,6 +3,7 @@ import Home from './pages/home';
 import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
+import Spinner from './components/spinner';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,8 +11,9 @@ export default class App extends React.Component {
     this.state = {
       route: parseRoute(window.location.hash),
       post: [],
-      isEditing: false
-
+      isEditing: false,
+      isLoading: true,
+      isOffline: false
     };
     this.updatePosts = this.updatePosts.bind(this);
     this.editingStatus = this.editingStatus.bind(this);
@@ -24,6 +26,11 @@ export default class App extends React.Component {
         route
       });
     });
+    window.addEventListener('offline', event => {
+      this.setState({
+        isOffline: true
+      });
+    });
     this.updatePosts();
   }
 
@@ -31,8 +38,10 @@ export default class App extends React.Component {
     fetch('/api/posts/')
       .then(res => res.json())
       .then(update => this.setState({
-        post: update
-      }));
+        post: update,
+        isLoading: false
+      }))
+      .catch(err => console.error(err));
     this.setState({
       isEditing: !this.state.isEditing
     });
@@ -45,6 +54,18 @@ export default class App extends React.Component {
   }
 
   renderPage() {
+    if (this.state.isLoading) {
+      return (
+        <Spinner />
+      );
+    }
+
+    if (this.state.isOffline) {
+      return (
+        <div className='d-flex justify-content-center mt-2 text-center'>Error connecting to network. Please check your internet connection.</div>
+      );
+    }
+
     const { route } = this.state;
     const postId = this.state.route.params.get('postId');
     if (route.path === '') {

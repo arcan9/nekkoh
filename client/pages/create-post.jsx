@@ -238,12 +238,11 @@ export default class CreatePost extends React.Component {
                     onChange={this.handleCaptionChange}
                     required />
                   <div className='d-flex justify-content-between'>
-                    {/* <div className='col-md-6'>
-                    </div> */}
-                    <a onClick={this.showModal} className='delete'>{deleteText}</a>
-                    <button type="submit" className="btn btn-info mt-2">{buttonText}</button>
-                    {/* <div className='col-md-6'>
-                    </div> */}
+                    <a onClick={this.showModal}
+                    className='delete'>{deleteText}</a>
+                    <button
+                    type="submit"
+                    className="btn btn-info mt-2">{buttonText}</button>
                   </div>
                 </div>
               </div>
