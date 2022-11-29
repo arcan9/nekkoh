@@ -13,7 +13,7 @@
 
 .post-w-main {
   margin: 20px auto;
-  width: 75%;
+  width: 80%;
 }
 
 .col-2 {
@@ -44,14 +44,6 @@
     flex-direction: column-reverse;
   }
 
-  .row {
-    flex-direction: column;
-  }
-
-  .col-6 {
-    width: 100%;
-  }
-
   .confirm-btn {
     margin-bottom: 10px;
   }
@@ -70,7 +62,7 @@
   }
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .post-w {
     width: 75%;
   }
@@ -78,10 +70,18 @@
   .post-w-main {
     width: 100%;
   }
+
+  .col-6 {
+    width: 80%;
+  }
 }
 
 @media screen and (max-width: 480px) {
   .post-w {
+    width: 100%;
+  }
+
+  .col-6 {
     width: 100%;
   }
 }
