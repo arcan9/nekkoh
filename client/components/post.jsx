@@ -1,7 +1,6 @@
 import React from 'react';
 import EditButton from './edit-button';
 import HeartIcon from './heart-icon';
-// import LikesCount from './likes-count';
 import Username from './username';
 import TimeCreated from './time-created';
 import Comments from './comments';

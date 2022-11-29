@@ -4,7 +4,6 @@
 
 .post-max-w {
   margin: 0 auto;
-  max-width: 80%;
 }
 
 .post-w {
@@ -24,12 +23,6 @@
 .display-inline {
   display: inline;
 }
-
-/* @media screen and (min-width: 767px) {
-  button.comment-post-btn {
-    height: 50%;
-  }
-} */
 
 @media screen and (max-width: 767px) {
   .navlist ul {

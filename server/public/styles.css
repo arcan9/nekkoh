@@ -1,9 +1,7 @@
 body {
   font-family: Roboto, sans-serif;
   background-color: #fafafa;
-  color: rgb(55, 53, 53)
-
-  /* font-family: 'Carter One', cursive; */
+  color: rgb(55, 53, 53);
 }
 
 img {
@@ -38,7 +36,6 @@ a.view-comments {
 }
 
 a.view-comments:hover {
-  /* text-decoration: underline; */
   color: #3266d7;
 }
 
