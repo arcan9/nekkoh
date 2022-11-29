@@ -62,7 +62,7 @@ export default class App extends React.Component {
 
     if (this.state.isOffline) {
       return (
-        <div className='d-flex justify-content-center mt-2'>Error connecting to network. Please check your internet connection.</div>
+        <div className='d-flex justify-content-center mt-2 text-center'>Error connecting to network. Please check your internet connection.</div>
       );
     }
 
