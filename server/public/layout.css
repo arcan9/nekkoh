@@ -47,8 +47,16 @@
     margin: 0 auto;
   }
 
-  .modal-wrapper .row {
+  .modal-wrapper {
     flex-direction: column-reverse;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .col-6 {
+    width: 100%;
   }
 
   .confirm-btn {
@@ -72,6 +80,10 @@
 @media screen and (max-width: 1023px) {
   .post-w {
     width: 75%;
+  }
+
+  .post-w-main {
+    width: 100%;
   }
 }
 
