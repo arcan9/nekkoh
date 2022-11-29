@@ -39,7 +39,8 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(update => this.setState({
         post: update,
-        isLoading: false
+        isLoading: false,
+        isOffline: false
       }))
       .catch(err => console.error(err));
     this.setState({
