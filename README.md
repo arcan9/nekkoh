@@ -66,4 +66,20 @@ pgweb --db=nekkohApp
 ```shell
 npm run dev
 ```
+
 Once started you can view the app by opening http://localhost:3000 in your browser.
+
+### S3 Bucket setup
+In handling file uploads:
+
+- You will need to login to the [AWS S3 console](https://console.aws.amazon.com/)
+- Create a bucket for the app
+- Have AWS create the following environment variables with your credentials:
+```javascript
+{
+    AWS_S3_REGION=us-west-1
+    AWS_S3_BUCKET=your-bucket-name
+    AWS_ACCESS_KEY_ID=your-access-key-id
+    AWS_SECRET_ACCESS_KEY=your-secret-access-key
+}
+```
