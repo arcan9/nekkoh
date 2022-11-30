@@ -45,7 +45,7 @@ a.cancel-comment {
   color: rgb(154, 159, 168);
   text-decoration: none;
   font-size: 13px;
-  margin: 0 3px;
+  margin: 0 0.188rem;
 }
 
 a:hover,
@@ -122,7 +122,7 @@ div.commentary-wrapper {
 }
 
 div.comment-row {
-  padding: 8px;
+  padding: 0.5rem;
 }
 
 div.timeago {
@@ -141,7 +141,7 @@ span.posted-on {
 textarea {
   width: 100%;
   border-radius: 6px;
-  margin-top: 15px;
+  margin-top: 0.938rem;
 }
 
 #comment-text-area {
@@ -153,7 +153,7 @@ div.comment-btn-container {
   justify-content: center;
   align-items: center;
   padding-left: 0;
-  margin-top: 5px;
+  margin-top: 0.313rem;
 }
 
 button.comment-post-btn {
@@ -161,7 +161,7 @@ button.comment-post-btn {
   color: white;
   border-radius: 6px;
   border: none;
-  padding: 5px 8px;
+  padding: 0.313rem 0.5rem;
   max-width: 60px;
   height: 50%;
 }
@@ -197,7 +197,7 @@ button.comment-post-btn:disabled {
 
 .modal-wrapper {
   background-color: white;
-  padding: 14px 20px 21px;
+  padding: 0.875rem 1.25rem 1.313rem;
   border-radius: 6px;
 }
 
@@ -213,7 +213,7 @@ button.comment-post-btn:disabled {
 
 .cancel-btn,
 .confirm-btn {
-  padding: 10px;
+  padding: 0.625rem;
   border-radius: 6px;
   border: none;
 }
