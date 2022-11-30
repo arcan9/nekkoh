@@ -4,7 +4,7 @@ A full stack web application for pet owners/lovers who want to share photos of t
 
 ## Why I Built This
 
-I enjoy sharing pictures of my pets and I love viewing pet-related profiles in socia media. What better way is there to learn and build a full stack CRUD app than to create something that accomplishes just that?
+I enjoy sharing pictures of my pets and I love viewing pet-related profiles in socia media. I wanted to learn and build a full stack CRUD that related to my interest.
 
 ## Technologies Used
 - React.js
@@ -33,6 +33,10 @@ Try the application live at [https://nekkoh.com/](https://nekkoh.com/)
 - User will be able to search for another user's posts
 - User will be able to view their profiles
 - User will be able to like posts
+
+## Preview
+![nekkoh demo](server/public/images/nekkoh-demo1.gif)
+![nekkoh demo 2](server/public/images/nekkoh-demo2.gif)
 
 ## Getting Started
 1. Clone repository
