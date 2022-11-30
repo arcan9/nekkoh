@@ -38,7 +38,13 @@ Try the application live at [https://nekkoh.com/](https://nekkoh.com/)
 ![nekkoh demo](server/public/images/nekkoh-demo1.gif)
 ![nekkoh demo 2](server/public/images/nekkoh-demo2.gif)
 
-## Getting Started
+## Development
+
+### System Requirements
+- Node.js 18 or higher
+- NPM 8 or higher
+
+### Getting Started
 1. Clone repository
 ```shell
 git clone git@github.com:arcan9/nekkoh.git
