@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentForm from './commentForm';
+import CommentForm from './comment-form';
 import ChatBubbleIcon from './chat-bubble-icon';
 
 export default class Comments extends React.Component {
