@@ -58,15 +58,15 @@ npm install
 ```shell
 createdb nekkohApp
 ```
-3. Import the example database to PostgreSQL
+4. Import the example database to PostgreSQL
 ```shell
 npm run db:import
 ```
-4. To examine the database
+5. To examine the database
 ```shell
 pgweb --db=nekkohApp
 ```
-5. Start the project
+6. Start the project
 ```shell
 npm run dev
 ```
