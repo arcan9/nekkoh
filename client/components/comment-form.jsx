@@ -4,11 +4,17 @@ export default class CommentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: props.initialComment
     };
     this.commentSubmit = this.commentSubmit.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
     this.commentUpdateSubmit = this.commentUpdateSubmit.bind(this);
+  }
+
+  componentDidUpdate(prevProp) {
+    if (this.props.initialComment !== prevProp.initialComment) {
+      this.setState({ text: '' });
+    }
   }
 
   commentSubmit(event) {
@@ -25,29 +31,29 @@ export default class CommentForm extends React.Component {
   }
 
   handleCommentChange(event) {
-    this.setState({
-      text: event.target.value
-    });
+    this.setState({ text: event.target.value });
   }
 
   render() {
     const { text } = this.state;
-    let textValue = this.state.text;
     let onSubmitBehavior = this.commentSubmit;
 
     if (this.props.isEditing) {
-      textValue = this.props.initialComment;
       onSubmitBehavior = this.commentUpdateSubmit;
     }
 
-    const enabled = text.length > 0;
+    let enabled;
+    if (text) {
+      enabled = text.length > 0;
+    }
+
     return (
       <form onSubmit={onSubmitBehavior}>
         <div className='row d-flex'>
           <div className='col-md-10'>
             <textarea id='comment-text-area'
           rows='2'
-          value={textValue}
+          value={text}
           onChange={this.handleCommentChange}/>
           </div>
           <div className='comment-btn-container col-md-2'>
