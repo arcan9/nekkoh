@@ -54,6 +54,10 @@ cd nekkoh
 ```shell
 npm install
 ```
+3. Create the database
+```shell
+createdb nekkohApp
+```
 3. Import the example database to PostgreSQL
 ```shell
 npm run db:import
