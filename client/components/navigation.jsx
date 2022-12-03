@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from './search-bar';
 
 export default function Navigation(props) {
   return (
@@ -13,13 +14,13 @@ export default function Navigation(props) {
               </h1>
             </div>
             <div className='right-hand-nav'>
-              <div className="input-group rounded search-input">
-                <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+              {/* <div className="input-group rounded search-input">
+                <input type="search" className="form-control rounded" placeholder="Search for user" aria-label="Search" aria-describedby="search-addon" />
                 <span className="input-group-text border-0" id="search-addon">
                   <i className="fas fa-search" />
                 </span>
-              </div>
-              {/* <i className='fa-solid fa-bars d-block d-md-none d-lg-none d-xl-none d-xxl-none d-flex justify-content-center m-3' /> */}
+              </div> */}
+              <SearchBar />
               <div className='navlist'>
                 <ul className=''>
                   <li onClick={props.isEditing}><a href="#">Home</a></li>
