@@ -17,16 +17,18 @@ export default class SearchBar extends React.Component {
 
   getUsers(event) {
     event.preventDefault();
-    // console.log('search btn clicked');
-    fetch(`/api/appUsers/?q=${this.state.query.toLowerCase()}`)
+    // console.log('query:', this.state.query);
+    fetch(`/api/appUsers/?q=${this.state.query}`)
       .then(res => res.json())
-      .then(user => this.setState({
-        searchedUser: user
-      }));
+      .then(user => {
+        window.location.hash = `search?q=${this.state.query}`;
+        this.props.searchedUser(user);
+        console.log('getUsers value:', user);
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
-    console.log(this.state.query);
     return (
       <form onSubmit={this.getUsers}>
         <div className="input-group rounded search-input">
@@ -37,7 +39,12 @@ export default class SearchBar extends React.Component {
         aria-describedby="search-addon"
         onChange={this.setQuery}/>
           <span className="input-group-text border-0" id="search-addon">
-            <button type='submit'><i className="fas fa-search" /></button>
+            {/* <a href={`#search?q=${this.state.query}`}>
+              <i className="fas fa-search"/>
+            </a> */}
+            <button type='submit'>
+              <i className="fas fa-search"/>
+            </button>
           </span>
         </div>
       </form>

@@ -11,12 +11,14 @@ export default class App extends React.Component {
     this.state = {
       route: parseRoute(window.location.hash),
       post: [],
+      searchedUser: [],
       isEditing: false,
       isLoading: true,
       isOffline: false
     };
     this.updatePosts = this.updatePosts.bind(this);
     this.editingStatus = this.editingStatus.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +34,11 @@ export default class App extends React.Component {
       });
     });
     this.updatePosts();
+  }
+
+  handleSearch(user) {
+    this.setState({ searchedUser: user });
+    console.log('handleSearch user:', user);
   }
 
   updatePosts(update) {
@@ -96,12 +103,23 @@ export default class App extends React.Component {
         editing={true}/>
       );
     }
+    if (route.path === 'search') {
+      return (
+        <div className='container'>
+          <div className='row'>
+            <UserPost post={this.state.searchedUser}
+          editing={false}/>
+          </div>
+        </div>
+      );
+    }
   }
 
   render() {
+    // console.log('searched user:', this.state.post);
     return (
       <>
-        <Home editing={false}/>
+        <Home editing={false} searchedUser={this.handleSearch}/>
         {this.renderPage()}
       </>
     );

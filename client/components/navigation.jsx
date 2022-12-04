@@ -20,7 +20,7 @@ export default function Navigation(props) {
                   <i className="fas fa-search" />
                 </span>
               </div> */}
-              <SearchBar />
+              <SearchBar searchedUser={props.searchedUser}/>
               <div className='navlist'>
                 <ul className=''>
                   <li onClick={props.isEditing}><a href="#">Home</a></li>

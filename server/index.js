@@ -265,7 +265,6 @@ app.get('/api/posts/', (req, res, next) => {
 
 app.get('/api/appUsers/', (req, res, next) => {
   const { q } = req.query;
-  console.log('username:', q);
 
   const sql = `
     SELECT
@@ -280,11 +279,10 @@ app.get('/api/appUsers/', (req, res, next) => {
   `;
   db.query(sql)
     .then(result => {
-      // console.log(result.rows);
       const data = result.rows;
-      const search = data.filter(user => user.username.toLowerCase().includes('j'));
-      console.log('search', search);
-      // res.json(result.rows);
+      const search = data.filter(user =>
+        user.username.toLowerCase().includes(q));
+      res.json(search);
     })
     .catch(err => next(err));
 });
