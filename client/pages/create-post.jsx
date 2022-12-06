@@ -176,8 +176,8 @@ export default class CreatePost extends React.Component {
   }
 
   render() {
-    const imgPreview = this.state.imagePreview;
-    const caption = this.state.caption;
+    let imgPreview = this.state.imagePreview;
+    let caption = this.state.caption;
     let onSubmitBehavior = null;
     let deleteText = null;
     let buttonText = '';
@@ -192,6 +192,8 @@ export default class CreatePost extends React.Component {
       buttonText = 'New Post';
       requiredStatus = true;
       onSubmitBehavior = this.handleSubmit;
+      imgPreview = 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg';
+      caption = '';
     }
 
     if (this.state.modal === true) {

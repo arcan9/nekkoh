@@ -34,11 +34,12 @@ export default class App extends React.Component {
       });
     });
     this.updatePosts();
+    // this.handleSearch();
   }
 
   handleSearch(user) {
     this.setState({ searchedUser: user });
-    console.log('handleSearch user:', user);
+    // localStorage.setItem('')
   }
 
   updatePosts(update) {
@@ -77,7 +78,9 @@ export default class App extends React.Component {
     }
 
     const { route } = this.state;
-    const postId = this.state.route.params.get('postId');
+    const postId = route.params.get('postId');
+    const query = route.params.get('q');
+    console.log(query);
     if (route.path === '') {
       return (
         <div className='container'>
@@ -108,7 +111,8 @@ export default class App extends React.Component {
         <div className='container'>
           <div className='row'>
             <UserPost post={this.state.searchedUser}
-          editing={false}/>
+          editing={false}
+          queryValue={query} />
           </div>
         </div>
       );
@@ -116,10 +120,10 @@ export default class App extends React.Component {
   }
 
   render() {
-    // console.log('searched user:', this.state.post);
     return (
       <>
-        <Home editing={false} searchedUser={this.handleSearch}/>
+        <Home editing={false}
+        searchedUser={this.handleSearch}/>
         {this.renderPage()}
       </>
     );
