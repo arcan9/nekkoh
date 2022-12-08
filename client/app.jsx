@@ -4,6 +4,7 @@ import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
 import Spinner from './components/spinner';
+import RenderSearchResults from './components/render-search-results';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -80,7 +81,7 @@ export default class App extends React.Component {
     const { route } = this.state;
     const postId = route.params.get('postId');
     const query = route.params.get('q');
-    console.log(query);
+    console.log('query:', query);
     if (route.path === '') {
       return (
         <div className='container'>
@@ -110,7 +111,7 @@ export default class App extends React.Component {
       return (
         <div className='container'>
           <div className='row'>
-            <UserPost post={this.state.searchedUser}
+            <RenderSearchResults post={this.state.searchedUser}
           editing={false}
           queryValue={query} />
           </div>

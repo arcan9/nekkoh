@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from '../components/modal';
+// import placeholder from '../../placeholder-image-square.jpg';
 
 export default class CreatePost extends React.Component {
   constructor(props) {
@@ -47,8 +48,8 @@ export default class CreatePost extends React.Component {
         });
         this.fileInputRef.current.value = null;
         this.props.updatePosts(postsCopy);
-      });
-
+      })
+      .catch(err => console.error(err));
   }
 
   /* replaces image preview with the target file */
@@ -95,7 +96,6 @@ export default class CreatePost extends React.Component {
         this.props.updatePosts();
       })
       .catch(err => console.error(err));
-
   }
 
   handleEdit(event) {
