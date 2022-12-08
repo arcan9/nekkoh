@@ -9,7 +9,7 @@ export default class RenderSearchResults extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchedPosts: props.post
+      searchedPosts: []
     };
   }
 
@@ -18,21 +18,21 @@ export default class RenderSearchResults extends React.Component {
 
     fetch(`api/appUsers/?q=${queryValue}`)
       .then(res => res.json())
-      .then(user => this.setState({ searchedPosts: user }))
+      .then(user => this.setState({
+        searchedPosts: user
+      }))
       .catch(err => console.error(err));
   }
 
   render() {
-    const searchedPosts = this.state.searchedPosts;
+    let posts = this.props.post;
 
-    console.log('searchedPosts state:', this.state.searchedPosts);
-    console.log('searchPosts array length:', this.state.searchedPosts.length);
-
-    if (searchedPosts.length === 0) {
-      return;
+    // if no new posts are being searched, render the current state
+    if (posts.length === 0) {
+      posts = this.state.searchedPosts;
     }
 
-    return searchedPosts.map(({ postId, mediaFile, caption, userId, createdAt }, index) => (
+    return posts.map(({ postId, mediaFile, caption, userId, createdAt }, index) => (
       <div className='post-max-w col-6' key={postId}>
         <div className='post-w-main justify-content-center'>
           <div className='wrapper row d-flex ps-0 pe-0'>
@@ -42,7 +42,7 @@ export default class RenderSearchResults extends React.Component {
                   <i className="fa-solid fa-paw me-2" />
                   <Username
                   user={userId}
-                  post={searchedPosts}/>
+                  post={posts}/>
                 </div>
               </div>
               <div className='col-sm-6 text-sm-end'>
@@ -66,7 +66,7 @@ export default class RenderSearchResults extends React.Component {
                 <HeartIcon/>
                 <Username
               user={userId}
-              post={searchedPosts}/>
+              post={posts}/>
                 <div>{caption}</div>
                 <TimeCreated dateTime={createdAt}/>
                 <Comments

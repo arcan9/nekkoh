@@ -35,12 +35,10 @@ export default class App extends React.Component {
       });
     });
     this.updatePosts();
-    // this.handleSearch();
   }
 
   handleSearch(user) {
     this.setState({ searchedUser: user });
-    // localStorage.setItem('')
   }
 
   updatePosts(update) {
@@ -81,7 +79,6 @@ export default class App extends React.Component {
     const { route } = this.state;
     const postId = route.params.get('postId');
     const query = route.params.get('q');
-    console.log('query:', query);
     if (route.path === '') {
       return (
         <div className='container'>
