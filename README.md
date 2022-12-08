@@ -27,10 +27,10 @@ Try the application live at [https://nekkoh.com/](https://nekkoh.com/)
 - User can delete their own post
 - User can comment on a post
 - User can delete their comment on a post
+- User can search for another user's posts
 
 ## Stretch Features
 
-- User will be able to search for another user's posts
 - User will be able to view their profiles
 - User will be able to like posts
 
