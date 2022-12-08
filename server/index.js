@@ -263,6 +263,30 @@ app.get('/api/posts/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/appUsers/', (req, res, next) => {
+  const { q } = req.query;
+
+  const sql = `
+    SELECT
+      u."username",
+      u."userId",
+      "postId",
+      "mediaFile",
+      "caption",
+    p."createdAt"
+    from "posts" as p
+    inner join "appUsers" as u using("userId")
+  `;
+  db.query(sql)
+    .then(result => {
+      const data = result.rows;
+      const search = data.filter(user =>
+        user.username.toLowerCase().includes(q));
+      res.json(search);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

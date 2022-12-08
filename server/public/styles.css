@@ -8,6 +8,10 @@ img {
   width: 100%;
 }
 
+button {
+  border: none;
+}
+
 a:link {
   text-decoration: none;
 }
@@ -168,6 +172,10 @@ button.comment-post-btn {
 
 button.comment-post-btn:disabled {
   background-color: #9ca8db;
+}
+
+button.search-btn {
+  background: none;
 }
 
 /* MODAL */

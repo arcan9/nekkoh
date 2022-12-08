@@ -4,6 +4,7 @@ import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
 import Spinner from './components/spinner';
+import RenderSearchResults from './components/render-search-results';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,12 +12,14 @@ export default class App extends React.Component {
     this.state = {
       route: parseRoute(window.location.hash),
       post: [],
+      searchedUser: [],
       isEditing: false,
       isLoading: true,
       isOffline: false
     };
     this.updatePosts = this.updatePosts.bind(this);
     this.editingStatus = this.editingStatus.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +35,10 @@ export default class App extends React.Component {
       });
     });
     this.updatePosts();
+  }
+
+  handleSearch(user) {
+    this.setState({ searchedUser: user });
   }
 
   updatePosts(update) {
@@ -63,12 +70,15 @@ export default class App extends React.Component {
 
     if (this.state.isOffline) {
       return (
-        <div className='d-flex justify-content-center mt-2 text-center'>Error connecting to network. Please check your internet connection.</div>
+        <div className='d-flex justify-content-center mt-2 text-center'>
+          Error connecting to network. Please check your internet connection.
+        </div>
       );
     }
 
     const { route } = this.state;
-    const postId = this.state.route.params.get('postId');
+    const postId = route.params.get('postId');
+    const query = route.params.get('q');
     if (route.path === '') {
       return (
         <div className='container'>
@@ -94,12 +104,24 @@ export default class App extends React.Component {
         editing={true}/>
       );
     }
+    if (route.path === 'search') {
+      return (
+        <div className='container'>
+          <div className='row'>
+            <RenderSearchResults post={this.state.searchedUser}
+          editing={false}
+          queryValue={query} />
+          </div>
+        </div>
+      );
+    }
   }
 
   render() {
     return (
       <>
-        <Home editing={false}/>
+        <Home editing={false}
+        searchedUser={this.handleSearch}/>
         {this.renderPage()}
       </>
     );

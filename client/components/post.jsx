@@ -44,7 +44,6 @@ export default function UserPost(props) {
 
             <div className='text-sm-start'>
               <HeartIcon/>
-              {/* <LikesCount /> */}
               <Username
               user={userId}
               post={props.post}/>
