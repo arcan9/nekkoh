@@ -36,7 +36,7 @@ export default class SearchBar extends React.Component {
         aria-describedby="search-addon"
         onChange={this.setQuery}/>
           <span className="input-group-text border-0" id="search-addon">
-            <button type='submit'>
+            <button className='search-btn' type='submit'>
               <i className="fas fa-search"/>
             </button>
           </span>
