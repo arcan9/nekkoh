@@ -5,9 +5,9 @@ export default function DemoModal(props) {
     <>
       <div className="overlay" onClick={props.hide} />
       <div className="modal-container">
-        <div className="modal-wrapper">
+        <div className="modal-wrapper ms-3 me-3">
           <div className="modal-text">
-            <p>You&apos;re navigating the demo of this app as user <em>JaneDoe</em>.</p>
+            <p className='text-center'>You&apos;re navigating the demo of this app as user <em>JaneDoe</em>.</p>
             <p className='text-center'>
               <small>To view Nekkoh&apos;s source code, visit its <a
             href='https://github.com/arcan9/nekkoh'
