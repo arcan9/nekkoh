@@ -4,7 +4,8 @@ import parseRoute from './lib/parse-route';
 import UserPost from './components/post';
 import CreatePost from './pages/create-post';
 import Spinner from './components/spinner';
-import RenderSearchResults from './components/render-search-results';
+import RenderSearchResults from './pages/render-search-results';
+import DemoModal from './components/demo-modal';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -15,11 +16,13 @@ export default class App extends React.Component {
       searchedUser: [],
       isEditing: false,
       isLoading: true,
-      isOffline: false
+      isOffline: false,
+      isModalActive: true
     };
     this.updatePosts = this.updatePosts.bind(this);
     this.editingStatus = this.editingStatus.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +38,7 @@ export default class App extends React.Component {
       });
     });
     this.updatePosts();
+    // this.setState({ demoModal: true });
   }
 
   handleSearch(user) {
@@ -59,6 +63,10 @@ export default class App extends React.Component {
     this.setState({
       isEditing: !this.state.isEditing
     });
+  }
+
+  hideModal() {
+    this.setState({ isModalActive: false });
   }
 
   renderPage() {
@@ -122,6 +130,7 @@ export default class App extends React.Component {
       <>
         <Home editing={false}
         searchedUser={this.handleSearch}/>
+        {this.state.isModalActive ? <DemoModal hide={this.hideModal}/> : null}
         {this.renderPage()}
       </>
     );
