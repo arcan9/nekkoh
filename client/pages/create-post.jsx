@@ -21,7 +21,6 @@ export default class CreatePost extends React.Component {
   }
 
   componentDidMount() {
-
     if (this.props.editing === false) {
       return;
     }

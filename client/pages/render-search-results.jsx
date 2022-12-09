@@ -1,9 +1,9 @@
 import React from 'react';
-import EditButton from './edit-button';
-import HeartIcon from './heart-icon';
-import Username from './username';
-import TimeCreated from './time-created';
-import Comments from './comments';
+import EditButton from '../components/edit-button';
+import HeartIcon from '../components/heart-icon';
+import Username from '../components/username';
+import TimeCreated from '../components/time-created';
+import Comments from '../components/comments';
 
 export default class RenderSearchResults extends React.Component {
   constructor(props) {
