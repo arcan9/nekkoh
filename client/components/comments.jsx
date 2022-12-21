@@ -20,12 +20,18 @@ export default class Comments extends React.Component {
     this.editComment = this.editComment.bind(this);
   }
 
-  componentDidMount() {
-    fetch('/api/comments')
-      .then(res => res.json())
-      .then(comments => this.setState({
-        backendComments: comments
-      }));
+  async componentDidMount() {
+    try {
+      const response = await fetch('/api/comments');
+      const comments = await response.json();
+      this.setState({ backendComments: comments });
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   showComments() {
@@ -35,7 +41,7 @@ export default class Comments extends React.Component {
     });
   }
 
-  addComment(text) {
+  async addComment(text) {
     const addCommentId = this.props.postId;
 
     const userCommentObj = {
@@ -44,17 +50,22 @@ export default class Comments extends React.Component {
       body: JSON.stringify({ text })
     };
 
-    fetch(`/api/comments/${addCommentId}`, userCommentObj)
-      .then(res => res.json())
-      .then(comment => {
-        const commentsCopy = this.state.backendComments.slice();
-        const newComments = commentsCopy.concat(comment);
-        this.setState({
-          backendComments: newComments,
-          isEditing: false
-        });
-      })
-      .catch(err => console.error(err));
+    try {
+      const response = await fetch(`/api/comments/${addCommentId}`, userCommentObj);
+      const comment = await response.json();
+      const commentsCopy = this.state.backendComments.slice();
+      const newComments = commentsCopy.concat(comment);
+      this.setState({
+        backendComments: newComments,
+        isEditing: false
+      });
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   editComment(event, id) {
@@ -65,7 +76,7 @@ export default class Comments extends React.Component {
     });
   }
 
-  deleteComment(event, id) {
+  async deleteComment(event, id) {
     event.stopPropagation();
 
     const deleteCommentObj = {
@@ -73,40 +84,51 @@ export default class Comments extends React.Component {
       headers: { 'Content-Type': 'application/json' }
     };
 
-    fetch(`/api/comments/${id}`, deleteCommentObj)
-      .then(res => {
-        const commentsCopy = this.state.backendComments.slice();
-        const updatedComments = commentsCopy.filter(c => c.commentId !== id);
-        if (res.status === 204) {
-          this.setState({
-            backendComments: updatedComments,
-            isEditing: false
-          });
-        }
-      })
-      .catch(err => console.error(err));
+    try {
+      const response = await fetch(`/api/comments/${id}`, deleteCommentObj);
+      const commentsCopy = this.state.backendComments.slice();
+      const updatedComments = commentsCopy.filter(c => c.commentId !== id);
+
+      if (response.status === 204) {
+        this.setState({
+          backendComments: updatedComments,
+          isEditing: false
+        });
+      }
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  updateComment(text, id) {
+  async updateComment(text, id) {
     const updateCommentObj = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text })
     };
 
-    fetch(`/api/comments/${id}`, updateCommentObj)
-      .then(res => res.json())
-      .then(comment => {
-        const commentsCopy = this.state.backendComments.slice();
-        const result = commentsCopy.map(old => old.commentId === id
-          ? comment
-          : old);
-        this.setState({
-          backendComments: result,
-          isEditing: false
-        });
-      })
-      .catch(err => console.error(err));
+    try {
+      const response = await fetch(`/api/comments/${id}`, updateCommentObj);
+      const comment = await response.json();
+      const commentsCopy = this.state.backendComments.slice();
+      const result = commentsCopy.map(old => old.commentId === id
+        ? comment
+        : old);
+      this.setState({
+        backendComments: result,
+        isEditing: false
+      });
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   cancelComment() {

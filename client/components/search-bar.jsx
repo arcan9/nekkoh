@@ -14,15 +14,21 @@ export default class SearchBar extends React.Component {
     this.setState({ query: event.target.value });
   }
 
-  getUsers(event) {
+  async getUsers(event) {
     event.preventDefault();
-    fetch(`/api/appUsers/?q=${this.state.query}`)
-      .then(res => res.json())
-      .then(user => {
-        window.location.hash = `search?q=${this.state.query}`;
-        this.props.searchedUser(user);
-      })
-      .catch(err => console.error(err));
+
+    try {
+      const response = await fetch(`/api/appUsers/?q=${this.state.query}`);
+      const user = await response.json();
+      window.location.hash = `search?q=${this.state.query}`;
+      this.props.searchedUser(user);
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {

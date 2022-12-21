@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from '../components/modal';
-// import placeholder from '../../placeholder-image-square.jpg';
 
 export default class CreatePost extends React.Component {
   constructor(props) {
@@ -20,7 +19,7 @@ export default class CreatePost extends React.Component {
     this.hideModal = this.hideModal.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (this.props.editing === false) {
       return;
     }
@@ -36,19 +35,24 @@ export default class CreatePost extends React.Component {
       }
     }
 
-    fetch(`/api/posts/${editingPostId}`)
-      .then(res => res.json())
-      .then(post => {
-        const postsCopy = this.props.post.slice();
-        postsCopy[index] = post;
-        this.setState({
-          caption: postsCopy[index].caption,
-          imagePreview: postsCopy[index].mediaFile
-        });
-        this.fileInputRef.current.value = null;
-        this.props.updatePosts(postsCopy);
-      })
-      .catch(err => console.error(err));
+    try {
+      const response = await fetch(`/api/posts/${editingPostId}`);
+      const post = await response.json();
+      const postsCopy = this.props.post.slice();
+      postsCopy[index] = post;
+      this.setState({
+        caption: post.caption,
+        imagePreview: post.mediaFile
+      });
+      this.fileInputRef.current.value = null;
+      this.props.updatePosts(postsCopy);
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   /* replaces image preview with the target file */
@@ -71,7 +75,7 @@ export default class CreatePost extends React.Component {
     this.setState({ caption: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData();
@@ -83,6 +87,21 @@ export default class CreatePost extends React.Component {
       method: 'POST',
       body: formData
     };
+
+    // try {
+    //   const response = await fetch('/api/uploads', formDataObject);
+    //   const posts = await response.json();
+    //   this.setState({ caption: '' });
+    //   this.fileInputRef.current.value = null;
+    //   window.location.hash = '';
+    //   this.props.updatePosts(posts);
+
+    //   if (!response.ok) {
+    //     throw Error(response.statusText);
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    // }
 
     fetch('/api/uploads', formDataObject)
       .then(res => res.json())
