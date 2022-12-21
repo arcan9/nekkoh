@@ -24,16 +24,9 @@ export default class CreatePost extends React.Component {
       return;
     }
 
-    const currentUserPosts = this.props.post;
     const editingPostId = this.props.postId;
 
-    let index = 0;
-    // Find the index of the post with the matching postId in the state array.
-    for (let i = 0; i < currentUserPosts.length; i++) {
-      if (currentUserPosts[i].postId === editingPostId) {
-        index = i;
-      }
-    }
+    const index = 0;
 
     try {
       const response = await fetch(`/api/posts/${editingPostId}`);
@@ -45,7 +38,7 @@ export default class CreatePost extends React.Component {
         imagePreview: post.mediaFile
       });
       this.fileInputRef.current.value = null;
-      this.props.updatePosts(postsCopy);
+      this.props.updatePosts();
 
       if (!response.ok) {
         throw Error(response.statusText);
@@ -88,48 +81,25 @@ export default class CreatePost extends React.Component {
       body: formData
     };
 
-    // try {
-    //   const response = await fetch('/api/uploads', formDataObject);
-    //   const posts = await response.json();
-    //   this.setState({ caption: '' });
-    //   this.fileInputRef.current.value = null;
-    //   window.location.hash = '';
-    //   this.props.updatePosts(posts);
+    try {
+      const response = await fetch('/api/uploads', formDataObject);
+      this.setState({ caption: '' });
+      this.fileInputRef.current.value = null;
+      window.location.hash = '';
+      this.props.updatePosts();
 
-    //   if (!response.ok) {
-    //     throw Error(response.statusText);
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    // }
-
-    fetch('/api/uploads', formDataObject)
-      .then(res => res.json())
-      .then(posts => {
-        this.setState({
-          caption: ''
-        });
-        this.fileInputRef.current.value = null;
-        window.location.hash = '';
-        this.props.updatePosts();
-      })
-      .catch(err => console.error(err));
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  handleEdit(event) {
+  async handleEdit(event) {
     event.preventDefault();
 
-    let index = 0;
-
-    const currentUserPosts = this.props.post;
     const editingPostId = this.props.postId;
-
-    // Find the index of the post with the matching postId in the state array.
-    for (let i = 0; i < currentUserPosts.length; i++) {
-      if (currentUserPosts[i].postId === editingPostId) {
-        index = i;
-      }
-    }
 
     const formData = new FormData();
 
@@ -141,44 +111,45 @@ export default class CreatePost extends React.Component {
       body: formData
     };
 
-    fetch(`/api/posts/${editingPostId}`, userPostObj)
-      .then(res => res.json())
-      .then(post => {
-        const postsCopy = this.props.post.slice();
-        postsCopy[index] = post;
-        this.fileInputRef.current.value = null;
-        window.location.hash = '';
-        this.props.updatePosts(postsCopy);
-      })
-      .catch(err => console.error(err));
+    try {
+      const response = await fetch(`/api/posts/${editingPostId}`, userPostObj);
+      this.fileInputRef.current.value = null;
+      window.location.hash = '';
+      this.props.updatePosts();
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  handleDelete() {
-    let index = 0;
-
-    const currentUserPosts = this.props.post;
+  async handleDelete() {
     const editingPostId = this.props.postId;
 
-    // Find the index of the post with the matching postId in the state array.
-    for (let i = 0; i < currentUserPosts.length; i++) {
-      if (currentUserPosts[i].postId === editingPostId) {
-        index = i;
-      }
-    }
     const deletePostObj = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     };
 
-    fetch(`/api/posts/${editingPostId}`, deletePostObj)
-      .then(post => {
-        const postsCopy = this.props.post.slice();
-        postsCopy[index] = post;
-        this.fileInputRef.current.value = null;
-        window.location.hash = '';
+    try {
+      const response = await fetch(`/api/posts/${editingPostId}`, deletePostObj);
+      const postsCopy = this.props.post.slice();
+
+      this.fileInputRef.current.value = null;
+      window.location.hash = '';
+
+      if (response.status === 204) {
         this.props.updatePosts(postsCopy);
-      })
-      .catch(err => console.error(err));
+      }
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   showModal() {
@@ -194,13 +165,13 @@ export default class CreatePost extends React.Component {
   }
 
   render() {
-    let imgPreview = this.state.imagePreview;
-    let caption = this.state.caption;
     let onSubmitBehavior = null;
     let deleteText = null;
     let buttonText = '';
     let modal = null;
     let requiredStatus = false;
+    const imgPreview = this.state.imagePreview;
+    const caption = this.state.caption;
 
     if (this.props.editing === true) {
       buttonText = 'Edit';
@@ -210,8 +181,6 @@ export default class CreatePost extends React.Component {
       buttonText = 'New Post';
       requiredStatus = true;
       onSubmitBehavior = this.handleSubmit;
-      imgPreview = 'https://raw.githubusercontent.com/arcan9/code-journal/main/images/placeholder-image-square.jpg';
-      caption = '';
     }
 
     if (this.state.modal === true) {

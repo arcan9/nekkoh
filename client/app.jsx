@@ -38,23 +38,19 @@ export default class App extends React.Component {
       });
     });
     this.updatePosts();
-    // this.setState({ demoModal: true });
   }
 
   handleSearch(user) {
     this.setState({ searchedUser: user });
   }
 
-  updatePosts(update) {
-    fetch('/api/posts/')
-      .then(res => res.json())
-      .then(update => this.setState({
-        post: update,
-        isLoading: false,
-        isOffline: false
-      }))
-      .catch(err => console.error(err));
+  async updatePosts() {
+    const response = await fetch('/api/posts/');
+    const data = await response.json();
     this.setState({
+      post: data,
+      isLoading: false,
+      isOffline: false,
       isEditing: !this.state.isEditing
     });
   }
