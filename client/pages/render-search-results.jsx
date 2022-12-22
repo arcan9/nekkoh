@@ -13,15 +13,20 @@ export default class RenderSearchResults extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const queryValue = this.props.queryValue;
 
-    fetch(`api/appUsers/?q=${queryValue}`)
-      .then(res => res.json())
-      .then(user => this.setState({
-        searchedPosts: user
-      }))
-      .catch(err => console.error(err));
+    try {
+      const response = await fetch(`api/appUsers/?q=${queryValue}`);
+      const user = await response.json();
+      this.setState({ searchedPosts: user });
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {
