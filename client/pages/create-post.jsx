@@ -34,8 +34,8 @@ export default class CreatePost extends React.Component {
       const postsCopy = this.props.post.slice();
       postsCopy[index] = post;
       this.setState({
-        caption: post.caption,
-        imagePreview: post.mediaFile
+        caption: postsCopy[index].caption,
+        imagePreview: postsCopy[index].mediaFile
       });
       this.fileInputRef.current.value = null;
       this.props.updatePosts();
